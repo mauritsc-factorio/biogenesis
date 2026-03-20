@@ -1,0 +1,12 @@
+{
+  "name": "biogenesis",
+  "version": "0.1.0",
+  "title": "Biogenesis",
+  "author": "mauritscottyn",
+  "homepage": "",
+  "description": "From seed to synthesis. A Factorio overhaul that traces the arc from primitive agriculture to synthetic biology. Cultivate crops, decode genetics, engineer organisms, and build a living world.",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "base >= 2.0"
+  ]
+}
