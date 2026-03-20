@@ -788,6 +788,24 @@ data:extend({
     subgroup = "bio-era1-machines",
     order = "j[infra]-d[collection-basket]",
   },
+
+  -- Field Notebook Station construction
+  {
+    type = "recipe",
+    name = "bio-era1-field-notebook-station-recipe",
+    category = "crafting",
+    energy_required = 3,
+    ingredients = {
+      {type = "item", name = "wood", amount = 5},
+      {type = "item", name = "stone", amount = 3},
+    },
+    results = {
+      {type = "item", name = "bio-era1-field-notebook-station", amount = 1},
+    },
+    enabled = true,
+    subgroup = "bio-era1-machines",
+    order = "j[infra]-e[field-notebook-station]",
+  },
 })
 
 -------------------------------------------------------------------------------

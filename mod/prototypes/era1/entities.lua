@@ -215,3 +215,26 @@ data:extend({
     inventory_size = 20,
   },
 })
+
+-------------------------------------------------------------------------------
+-- 8. Field Notebook Station — 2x2, void power, lab for Era 1 research
+-------------------------------------------------------------------------------
+data:extend({
+  {
+    type = "lab",
+    name = "bio-era1-field-notebook-station",
+    icons = tinted_icon("__base__/graphics/icons/lab.png", {r = 0.3, g = 0.7, b = 0.7, a = 1}),
+    flags = {"placeable-neutral", "player-creation"},
+    minable = {mining_time = 0.5, result = "bio-era1-field-notebook-station"},
+    max_health = 150,
+    corpse = "medium-remnants",
+    collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
+    selection_box = {{-1, -1}, {1, 1}},
+    on_animation = entity_sprite("field-notebook-station.png", 64, 64),
+    off_animation = entity_sprite("field-notebook-station.png", 64, 64),
+    inputs = {"bio-era1-observational-analysis-kit"},
+    researching_speed = 1,
+    energy_source = void_energy,
+    energy_usage = "1W",
+  },
+})

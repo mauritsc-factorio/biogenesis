@@ -86,8 +86,8 @@ script.on_event(defines.events.on_tick, function(event)
       player.insert({name = "wood", count = 50})
       player.insert({name = "stone", count = 50})
 
-      -- Vanilla lab for researching (until we make a custom one)
-      player.insert({name = "lab", count = 1})
+      -- Field Notebook Station for Era 1 research (void-powered, no electricity needed)
+      player.insert({name = "bio-era1-field-notebook-station", count = 1})
 
       -- Grant Forager's Eye
       grant_free_techs(player.force)

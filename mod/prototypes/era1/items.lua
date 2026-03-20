@@ -655,4 +655,13 @@ data:extend({
     stack_size = 20,
     place_result = "bio-era1-collection-basket",
   },
+  {
+    type = "item",
+    name = "bio-era1-field-notebook-station",
+    icons = tinted_icon(V .. "lab.png", TEAL),
+    subgroup = "bio-era1-machines",
+    order = "e[field-notebook-station]",
+    stack_size = 20,
+    place_result = "bio-era1-field-notebook-station",
+  },
 })
