@@ -45,14 +45,16 @@ data:extend({
     order = "a[fiber]-b[process-cattail]",
   },
 
-  -- Recipe 3: 2 Plant Fiber -> 1 Fiber Cord (hand-craft)
+  -- Recipe 3: 1 Wild Grass -> 1 Fiber Cord (hand-craft, direct)
+  -- Bypasses plant fiber intermediate for cord specifically.
+  -- Plant fiber recipe still exists for baskets/construction.
   {
     type = "recipe",
     name = "bio-era1-fiber-cord",
     category = "crafting",
     energy_required = 2,
     ingredients = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 2},
+      {type = "item", name = "bio-era1-wild-grass", amount = 1},
     },
     results = {
       {type = "item", name = "bio-era1-fiber-cord", amount = 1},
