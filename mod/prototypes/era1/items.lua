@@ -29,7 +29,7 @@ local TEAL      = {r = 0.3, g = 0.7, b = 0.7, a = 1}   -- science
 -- Vanilla base icons used as templates
 local PLANT_ICON   = "__base__/graphics/icons/tree-09.png"
 local GRASS_ICON   = "__base__/graphics/icons/wood.png"
-local GRAIN_ICON   = "__base__/graphics/icons/tree-seed.png"
+local GRAIN_ICON   = "__base__/graphics/icons/coal.png"  -- tinted yellow for grain
 local FLOWER_ICON  = "__base__/graphics/icons/tree-05.png"
 local NUT_ICON     = "__base__/graphics/icons/coal.png"
 local FUNGUS_ICON  = "__base__/graphics/icons/sulfur.png"
