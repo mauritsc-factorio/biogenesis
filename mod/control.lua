@@ -60,28 +60,28 @@ script.on_event(defines.events.on_tick, function(event)
       player.insert({name = "bio-era1-crude-hammer", count = 1})
       player.insert({name = "bio-era1-knapping-blade", count = 1})
 
-      -- Grassland biome
-      player.insert({name = "bio-era1-wild-grass", count = 20})
-      player.insert({name = "bio-era1-wild-grain-head", count = 15})
-      player.insert({name = "bio-era1-clover-patch", count = 10})
+      -- Grassland biome (generous for testing)
+      player.insert({name = "bio-era1-wild-grass", count = 50})
+      player.insert({name = "bio-era1-wild-grain-head", count = 40})
+      player.insert({name = "bio-era1-clover-patch", count = 20})
 
       -- Forest biome
-      player.insert({name = "bio-era1-forest-nut-cluster", count = 10})
-      player.insert({name = "bio-era1-bracket-fungus", count = 8})
-      player.insert({name = "bio-era1-fallen-fruit", count = 5})
+      player.insert({name = "bio-era1-forest-nut-cluster", count = 20})
+      player.insert({name = "bio-era1-bracket-fungus", count = 20})
+      player.insert({name = "bio-era1-fallen-fruit", count = 10})
 
       -- Wetland biome
-      player.insert({name = "bio-era1-cattail", count = 10})
-      player.insert({name = "bio-era1-bog-root", count = 8})
-      player.insert({name = "bio-era1-peat-moss", count = 10})
+      player.insert({name = "bio-era1-cattail", count = 20})
+      player.insert({name = "bio-era1-bog-root", count = 20})
+      player.insert({name = "bio-era1-peat-moss", count = 20})
 
       -- Rocky biome
-      player.insert({name = "bio-era1-lichen-scraping", count = 5})
-      player.insert({name = "bio-era1-rock-cress", count = 5})
+      player.insert({name = "bio-era1-lichen-scraping", count = 10})
+      player.insert({name = "bio-era1-rock-cress", count = 10})
 
       -- Basic resources for building
-      player.insert({name = "wood", count = 20})
-      player.insert({name = "stone", count = 20})
+      player.insert({name = "wood", count = 50})
+      player.insert({name = "stone", count = 50})
 
       -- Grant Forager's Eye
       grant_free_techs(player.force)

@@ -4,15 +4,16 @@
 -- The Stone-Lined Fire Pit uses burner energy.
 -- The Collection Basket is a simple container.
 
-local placeholder = "__biogenesis__/graphics/placeholder.png"
+local gfx_path = "__biogenesis__/graphics/entities/"
 
--- Helper: minimal animation table pointing at the 32x32 transparent placeholder.
-local function placeholder_animation()
+-- Helper: entity animation from a colored sprite file
+-- w, h are the pixel dimensions of the source PNG
+local function entity_sprite(filename, w, h)
   return {
-    filename = placeholder,
+    filename = gfx_path .. filename,
     priority = "high",
-    width = 32,
-    height = 32,
+    width = w,
+    height = h,
     frame_count = 1,
     scale = 1,
     shift = {0, 0},
@@ -51,7 +52,7 @@ data:extend({
     collision_box = {{-0.9, -0.35}, {0.9, 0.35}},
     selection_box = {{-1, -0.5}, {1, 0.5}},
     graphics_set = {
-      animation = placeholder_animation(2, 1),
+      animation = entity_sprite("grinding-slab.png", 64, 32),
     },
     crafting_categories = {"grinding"},
     crafting_speed = 1,
@@ -75,7 +76,7 @@ data:extend({
     collision_box = {{-0.9, -0.35}, {0.9, 0.35}},
     selection_box = {{-1, -0.5}, {1, 0.5}},
     graphics_set = {
-      animation = placeholder_animation(2, 1),
+      animation = entity_sprite("drying-rack.png", 64, 32),
     },
     crafting_categories = {"drying"},
     crafting_speed = 1,
@@ -100,7 +101,7 @@ data:extend({
     collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     graphics_set = {
-      animation = placeholder_animation(1, 1),
+      animation = entity_sprite("leaching-basket.png", 32, 32),
     },
     crafting_categories = {"leaching"},
     crafting_speed = 1,
@@ -124,7 +125,7 @@ data:extend({
     collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
     selection_box = {{-1, -1}, {1, 1}},
     graphics_set = {
-      animation = placeholder_animation(2, 2),
+      animation = entity_sprite("fire-pit.png", 64, 64),
     },
     crafting_categories = {"kiln-firing"},
     crafting_speed = 1,
@@ -155,7 +156,7 @@ data:extend({
     collision_box = {{-1.35, -0.85}, {1.35, 0.85}},
     selection_box = {{-1.5, -1}, {1.5, 1}},
     graphics_set = {
-      animation = placeholder_animation(3, 2),
+      animation = entity_sprite("compost-heap.png", 96, 64),
     },
     crafting_categories = {"composting"},
     crafting_speed = 1,
@@ -180,7 +181,7 @@ data:extend({
     collision_box = {{-1.35, -1.35}, {1.35, 1.35}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     graphics_set = {
-      animation = placeholder_animation(3, 3),
+      animation = entity_sprite("water-wheel.png", 96, 96),
     },
     crafting_categories = {"water-milling", "grinding"},
     crafting_speed = 1,
@@ -204,11 +205,11 @@ data:extend({
     collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     picture = {
-      filename = placeholder,
+      filename = gfx_path .. "collection-basket.png",
       priority = "extra-high",
-      width = 1,
-      height = 1,
-      scale = 32,
+      width = 32,
+      height = 32,
+      scale = 1,
       shift = {0, 0},
     },
     inventory_size = 20,
