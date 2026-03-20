@@ -9,8 +9,8 @@
 -- FIBER PROCESSING CHAIN
 -------------------------------------------------------------------------------
 data:extend({
-  -- Recipe 1: Wild Grass -> 2 Plant Fiber (hand-craft w/ knapping blade)
-  -- Uses result/result_count instead of results table so Factorio auto-chains intermediates
+  -- Recipe 1: Wild Grass -> 2 Plant Fiber (hand-craft)
+  -- Single-item results array for Factorio 2.0 compatibility
   {
     type = "recipe",
     name = "bio-era1-process-wild-grass",
@@ -19,8 +19,13 @@ data:extend({
     ingredients = {
       {type = "item", name = "bio-era1-wild-grass", amount = 1},
     },
-    result = "bio-era1-plant-fiber",
-    result_count = 2,
+    results = {
+      {type = "item", name = "bio-era1-plant-fiber", amount = 2},
+    },
+    main_product = "bio-era1-plant-fiber",
+    allow_as_intermediate = true,
+    allow_intermediates = true,
+    allow_decomposition = true,
     enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-a[process-wild-grass]",
@@ -36,8 +41,9 @@ data:extend({
     ingredients = {
       {type = "item", name = "bio-era1-cattail", amount = 1},
     },
-    result = "bio-era1-cattail-root",
-    result_count = 1,
+    results = {
+      {type = "item", name = "bio-era1-cattail-root", amount = 1},
+    },
     enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-b[process-cattail]",
@@ -50,10 +56,12 @@ data:extend({
     ingredients = {
       {type = "item", name = "bio-era1-cattail", amount = 1},
     },
-    result = "bio-era1-plant-fiber",
-    result_count = 1,
+    results = {
+      {type = "item", name = "bio-era1-plant-fiber", amount = 1},
+    },
+    main_product = "bio-era1-plant-fiber",
+    allow_as_intermediate = false,  -- don't use for auto-craft chains, use wild grass
     enabled = true,
-    allow_as_intermediate = false,  -- don't use this for auto-craft chains, use wild grass instead
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-c[strip-cattail]",
   },
@@ -70,6 +78,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-fiber-cord", amount = 1},
     },
+    allow_intermediates = true,  -- auto-craft plant fiber from wild grass
     enabled = false,  -- unlocked by Fiber Arts
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-c[fiber-cord]",
