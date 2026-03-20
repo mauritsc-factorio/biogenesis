@@ -6,18 +6,15 @@
 
 local placeholder = "__biogenesis__/graphics/placeholder.png"
 
--- Helper: minimal animation table pointing at the 1x1 transparent placeholder.
--- For larger entities we scale the same pixel so it is invisible.
-local function placeholder_animation(width, height)
-  width  = width  or 1
-  height = height or 1
+-- Helper: minimal animation table pointing at the 32x32 transparent placeholder.
+local function placeholder_animation()
   return {
     filename = placeholder,
     priority = "high",
-    width = 1,
-    height = 1,
+    width = 32,
+    height = 32,
     frame_count = 1,
-    scale = 32 * math.max(width, height),  -- scale up so bounding box is covered
+    scale = 1,
     shift = {0, 0},
   }
 end
