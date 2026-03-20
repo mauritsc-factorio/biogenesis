@@ -255,7 +255,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-nut-cake", amount = 1},
     },
-    enabled = true, (cooked food group)
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "d[nut]-c[nut-cake]",
   },
@@ -277,7 +277,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-raw-fungus", amount = 2},
     },
-    enabled = true, (bark scraper)
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "e[fungus]-a[scrape-fungus]",
   },
@@ -294,7 +294,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-dried-fungus", amount = 1},
     },
-    enabled = true, (drying rack access)
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "e[fungus]-b[dry-fungus]",
   },
@@ -914,7 +914,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-observational-analysis-kit", amount = 2},
     },
-    enabled = true, (need compost chain)
+    enabled = true,
     subgroup = "bio-era1-science",
     order = "z[science]-a[oak]",
   },
