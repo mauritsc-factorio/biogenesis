@@ -104,8 +104,7 @@ data:extend({
     order = "b[grain]-a[grind-grain]",
   },
 
-  -- Recipe 6: 1 Rough Flour -> 2 Flatbread (Stone-Lined Fire Pit)
-  -- Design says + water, but we use items-only for now; water integration later.
+  -- Recipe 6: 1 Rough Flour + 1 Water -> 2 Flatbread (Stone-Lined Fire Pit)
   {
     type = "recipe",
     name = "bio-era1-bake-flatbread",
@@ -113,6 +112,7 @@ data:extend({
     energy_required = 6,
     ingredients = {
       {type = "item", name = "bio-era1-rough-flour", amount = 1},
+      {type = "item", name = "bio-era1-water", amount = 1},
     },
     results = {
       {type = "item", name = "bio-era1-flatbread", amount = 2},

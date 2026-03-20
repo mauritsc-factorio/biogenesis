@@ -79,9 +79,15 @@ script.on_event(defines.events.on_tick, function(event)
       player.insert({name = "bio-era1-lichen-scraping", count = 10})
       player.insert({name = "bio-era1-rock-cress", count = 10})
 
+      -- Water (item form until fluid infrastructure)
+      player.insert({name = "bio-era1-water", count = 50})
+
       -- Basic resources for building
       player.insert({name = "wood", count = 50})
       player.insert({name = "stone", count = 50})
+
+      -- Vanilla lab for researching (until we make a custom one)
+      player.insert({name = "lab", count = 1})
 
       -- Grant Forager's Eye
       grant_free_techs(player.force)
