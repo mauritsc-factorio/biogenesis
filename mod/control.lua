@@ -19,18 +19,53 @@ end)
 
 -------------------------------------------------------------------------------
 -- NEW PLAYER SETUP
--- Era 1 starts with nothing but a Crude Hammer. Everything else is foraged.
--- Also grants Forager's Eye tech to the player's force.
+-- Clear vanilla starting items and give Era 1 starter pack.
+-- Since we don't have harvestable world entities yet, give the player
+-- raw materials from each biome so they can test the full recipe chain.
 -------------------------------------------------------------------------------
 script.on_event(defines.events.on_player_created, function(event)
   local player = game.get_player(event.player_index)
   if not player then return end
 
-  -- Clear default starting items (pistol, ammo, etc.)
-  player.clear_items_inside()
+  -- Clear ALL inventory slots (Factorio 2.0 method)
+  local inv = player.get_main_inventory()
+  if inv then inv.clear() end
 
-  -- Give only a Crude Hammer — the player forages everything else
+  -- Also clear cursor, armor, guns, ammo
+  player.cursor_stack.clear()
+  local armor_inv = player.get_inventory(defines.inventory.character_armor)
+  if armor_inv then armor_inv.clear() end
+  local gun_inv = player.get_inventory(defines.inventory.character_guns)
+  if gun_inv then gun_inv.clear() end
+  local ammo_inv = player.get_inventory(defines.inventory.character_ammo)
+  if ammo_inv then ammo_inv.clear() end
+
+  -- Tools
   player.insert({name = "bio-era1-crude-hammer", count = 1})
+  player.insert({name = "bio-era1-knapping-blade", count = 1})
+
+  -- Grassland biome foraged materials
+  player.insert({name = "bio-era1-wild-grass", count = 20})
+  player.insert({name = "bio-era1-wild-grain-head", count = 15})
+  player.insert({name = "bio-era1-clover-patch", count = 10})
+
+  -- Forest biome
+  player.insert({name = "bio-era1-forest-nut-cluster", count = 10})
+  player.insert({name = "bio-era1-bracket-fungus", count = 8})
+  player.insert({name = "bio-era1-fallen-fruit", count = 5})
+
+  -- Wetland biome
+  player.insert({name = "bio-era1-cattail", count = 10})
+  player.insert({name = "bio-era1-bog-root", count = 8})
+  player.insert({name = "bio-era1-peat-moss", count = 10})
+
+  -- Rocky biome
+  player.insert({name = "bio-era1-lichen-scraping", count = 5})
+  player.insert({name = "bio-era1-rock-cress", count = 5})
+
+  -- Basic resources for building
+  player.insert({name = "wood", count = 20})
+  player.insert({name = "stone", count = 20})
 
   -- Ensure Forager's Eye is auto-researched for the player's force
   if player.force then
