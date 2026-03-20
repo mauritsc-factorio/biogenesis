@@ -27,6 +27,7 @@ data:extend({
   },
 
   -- Recipe 2: Cattail -> 1 Plant Fiber + 1 Cattail Root (hand-craft)
+  -- Split into two single-output recipes so both auto-chain properly
   {
     type = "recipe",
     name = "bio-era1-process-cattail",
@@ -35,14 +36,25 @@ data:extend({
     ingredients = {
       {type = "item", name = "bio-era1-cattail", amount = 1},
     },
-    results = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 1},
-      {type = "item", name = "bio-era1-cattail-root", amount = 1},
-    },
-    main_product = "bio-era1-plant-fiber",
+    result = "bio-era1-cattail-root",
+    result_count = 1,
     enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-b[process-cattail]",
+  },
+  {
+    type = "recipe",
+    name = "bio-era1-strip-cattail-fiber",
+    category = "crafting",
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "bio-era1-cattail", amount = 1},
+    },
+    result = "bio-era1-plant-fiber",
+    result_count = 1,
+    enabled = true,
+    subgroup = "bio-era1-intermediates",
+    order = "a[fiber]-c[strip-cattail]",
   },
 
   -- Recipe 3: 2 Plant Fiber -> 1 Fiber Cord (hand-craft)
