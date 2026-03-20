@@ -2,15 +2,15 @@
 
 **From Seed to Synthesis.**
 
-A Factorio 2.0 total overhaul mod that traces the arc from primitive agriculture to synthetic biology. You start by pulling wheat from the ground. You end by authoring a living world.
+A Factorio 2.0 total overhaul mod. You start by pulling wheat from the ground. You end by authoring a living world.
 
 > *"This is biogenesis. The origin of life. And you were it."*
 
 ## What is this?
 
-Biogenesis is not a farming mod that leads to biotech. It is a **biotech mod that starts with farming.**
+Biogenesis is not a farming mod that leads to biotech. It's a **biotech mod that starts with farming.**
 
-Farming IS biotech — the oldest form. Selective breeding IS genetic engineering, just slow. Fermentation IS bioprocessing. Composting IS microbial cultivation. You are doing biotech from minute one. You just don't have the vocabulary yet. The mod's job is to gradually reveal that what you've been doing all along was science.
+Farming IS biotech, the oldest form. Selective breeding IS genetic engineering, just slow. Fermentation IS bioprocessing. Composting IS microbial cultivation. You're doing biotech from minute one. You just don't have the vocabulary yet.
 
 ## The Journey
 
@@ -31,7 +31,7 @@ Farming IS biotech — the oldest form. Selective breeding IS genetic engineerin
 
 ## Signature Mechanic: The Biological Web
 
-Every living thing in your factory has relationships with its neighbors. Place nitrogen-fixing beans next to wheat and both thrive. Stack two competing fermenters and both suffer. Your base layout is an **ecosystem design puzzle** — not just "where do belts go" but "which organisms can coexist."
+Every living thing in your factory has relationships with its neighbors. Place nitrogen-fixing beans next to wheat and both thrive. Stack two competing fermenters and both suffer. Your base layout is an **ecosystem design puzzle**.
 
 And everything drifts. Your organisms slowly evolve over time. A well-designed symbiotic cluster self-optimizes. A neglected corner degrades. The factory is alive and never static.
 
@@ -49,9 +49,9 @@ The mod tells a story entirely through gameplay. No cutscenes. No lore dumps.
 
 ## Current Status
 
-**Design: Complete.** 740K of design documentation across 9 era docs, signature mechanic specification, power generation chain, and bootstrap machines. 4 review rounds + full playthrough simulation. Zero blockers.
+**Design: Complete.** 740K of design docs across 9 eras. 4 review rounds + full playthrough simulation. Zero blockers.
 
-**Implementation: Era 1 complete.** 61 items, 47 recipes, 7 entities, 9 technologies. Loadable in Factorio 2.0 with placeholder graphics.
+**Implementation: Era 1 done.** 61 items, 47 recipes, 7 entities, 9 technologies. Loadable in Factorio 2.0 with placeholder graphics.
 
 | Component | Status |
 |-----------|--------|
@@ -59,30 +59,30 @@ The mod tells a story entirely through gameplay. No cutscenes. No lore dumps.
 | Signature mechanic spec | Done |
 | Power generation chain | Done |
 | Era 1: Observation | Implemented |
-| Era 2A/2B: Cultivation | Design complete, not yet coded |
-| Eras 3-9 | Design complete, not yet coded |
+| Era 2A/2B: Cultivation | Design done, not yet coded |
+| Eras 3-9 | Design done, not yet coded |
 | Biological Web system | Specified, not yet coded |
 | Organism Drift system | Specified, not yet coded |
-| Custom art/sprites | Not started (using tinted vanilla placeholders) |
+| Custom art/sprites | Not started (tinted vanilla placeholders) |
 
 ## Design Documents
 
 The `design/` folder contains the complete mod bible:
 
-- `master-redesign.md` — The identity document. Era structure, narrative arc, tone progression.
-- `signature-mechanic-spec.md` — Biological Web + Organism Drift. Data structures, algorithms, performance budgets, Factorio API usage.
-- `eras-1-2-final.md` through `era-9-final.md` — Complete item lists, recipe chains, machine specs, tech trees, science pack recipes, and cross-era connections for all 9 eras.
-- `power-generation.md` — 8-tier biological power chain from water wheels to self-sustaining arcology metabolism.
-- `bootstrap-machines.md` — Era 8 machines that break the Era 9 construction deadlock.
+- `master-redesign.md` - The identity document. Era structure, narrative arc, tone progression.
+- `signature-mechanic-spec.md` - Biological Web + Organism Drift. Data structures, algorithms, performance budgets.
+- `eras-1-2-final.md` through `era-9-final.md` - Complete item lists, recipe chains, machine specs, tech trees for all 9 eras.
+- `power-generation.md` - 8-tier biological power chain from water wheels to arcology metabolism.
+- `bootstrap-machines.md` - Era 8 machines that break the Era 9 construction deadlock.
 
 ## Numbers
 
-- **~1,000 items** across 9 eras
-- **~900 recipes** with branching at every step
-- **~120 fluids** (biological, all of them)
-- **~150 machines** with mk1/mk2/mk3 tiers
-- **7 science packs** (Observational Analysis Kit through Biosphere Genesis Record)
-- **9 research chapters:** Field Observations, Selective Cultivation, The Invisible Ecosystem, The Rules of Inheritance, The Source Code of Life, Authoring Life, The Optimization Engine, Emergent Architecture, Genesis
+- ~1,000 items across 9 eras
+- ~900 recipes with branching at every step
+- ~120 fluids (biological, all of them)
+- ~150 machines with mk1/mk2/mk3 tiers
+- 7 science packs
+- 9 research chapters
 
 ## Requirements
 
@@ -91,12 +91,8 @@ The `design/` folder contains the complete mod bible:
 
 ## Contributing
 
-This mod is in active development. The design is locked — contributions to implementation, art, and testing are welcome.
+Active development. Design is locked. Contributions to implementation, art, and testing are welcome.
 
 ## License
 
 TBD
-
----
-
-*You began with a handful of wild wheat and a stone knife. You end with a living world of your own design. The distance between these two points is the measure of what you have become.*
