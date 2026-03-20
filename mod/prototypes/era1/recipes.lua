@@ -10,6 +10,7 @@
 -------------------------------------------------------------------------------
 data:extend({
   -- Recipe 1: Wild Grass -> 2 Plant Fiber (hand-craft w/ knapping blade)
+  -- Uses result/result_count instead of results table so Factorio auto-chains intermediates
   {
     type = "recipe",
     name = "bio-era1-process-wild-grass",
@@ -18,10 +19,9 @@ data:extend({
     ingredients = {
       {type = "item", name = "bio-era1-wild-grass", amount = 1},
     },
-    results = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 2},
-    },
-    enabled = true,  -- available from start
+    result = "bio-era1-plant-fiber",
+    result_count = 2,
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-a[process-wild-grass]",
   },
