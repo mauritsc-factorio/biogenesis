@@ -31,8 +31,8 @@ script.on_event(defines.events.on_player_created, function(event)
   local inv = player.get_main_inventory()
   if inv then inv.clear() end
 
-  -- Also clear cursor, armor, guns, ammo
-  player.cursor_stack.clear()
+  -- Clear cursor, armor, guns, ammo (nil-safe)
+  if player.cursor_stack then player.cursor_stack.clear() end
   local armor_inv = player.get_inventory(defines.inventory.character_armor)
   if armor_inv then armor_inv.clear() end
   local gun_inv = player.get_inventory(defines.inventory.character_guns)
