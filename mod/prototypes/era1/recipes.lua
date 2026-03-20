@@ -53,6 +53,7 @@ data:extend({
     result = "bio-era1-plant-fiber",
     result_count = 1,
     enabled = true,
+    allow_as_intermediate = false,  -- don't use this for auto-craft chains, use wild grass instead
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-c[strip-cattail]",
   },
