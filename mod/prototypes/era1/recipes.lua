@@ -326,7 +326,7 @@ data:extend({
     type = "recipe",
     name = "bio-era1-compost-load",
     category = "composting",
-    energy_required = 120,
+    energy_required = 30,
     ingredients = {
       {type = "item", name = "bio-era1-green-waste", amount = 5},
       {type = "item", name = "bio-era1-brown-waste", amount = 5},
@@ -344,7 +344,7 @@ data:extend({
     type = "recipe",
     name = "bio-era1-compost-mature",
     category = "composting",
-    energy_required = 120,
+    energy_required = 30,
     ingredients = {
       {type = "item", name = "bio-era1-immature-compost", amount = 1},
     },
