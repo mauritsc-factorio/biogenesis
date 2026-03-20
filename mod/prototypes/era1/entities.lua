@@ -55,7 +55,7 @@ data:extend({
       animation = entity_sprite("grinding-slab.png", 64, 32),
     },
     crafting_categories = {"grinding"},
-    crafting_speed = 1,
+    crafting_speed = 0.5,  -- slow: manual stone grinding
     energy_source = void_energy,
     energy_usage = "1W",
   },
@@ -184,7 +184,7 @@ data:extend({
       animation = entity_sprite("water-wheel.png", 96, 96),
     },
     crafting_categories = {"water-milling", "grinding"},
-    crafting_speed = 1,
+    crafting_speed = 2,  -- fast: water-powered, the first real automation
     energy_source = void_energy,
     energy_usage = "1W",
   },
