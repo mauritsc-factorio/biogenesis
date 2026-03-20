@@ -7,14 +7,21 @@
 - [x] Biogenesis item group/tab visible in crafting menu
 - [x] Starting items (foraged materials from 4 biomes)
 - [x] Free techs auto-granted on game start
-- [x] Symlink dev flow (no restart needed for data changes)
+- [x] Symlink dev flow (`ln -s mod ~/.factorio/mods/biogenesis_0.1.0`)
+- [x] Vanilla starting items suppressed (deferred clear via on_tick)
+
+### Dev Workflow Gotchas
+- `/c game.reload_mods()` does NOT reload data prototypes in Factorio 2.0 -- must fully quit and relaunch
+- `control.lua` changes always require a new game (on_init only runs once)
+- Factorio 2.0 icon paths changed from 1.x: `raw-fish` -> `fish`, `barrel` removed, `tree-seed` is Space Age only, `sulfuric-acid` in `icons/fluid/` subfolder
+- `player.cursor_stack` is nil at player creation time -- must nil-check
+- Factorio inserts vanilla starting items AFTER on_player_created -- defer inventory clear to on_tick
 
 ### Needs Fixing
 - [ ] Vanilla tech tree still visible (need to hide/disable vanilla techs + recipes for overhaul)
-- [ ] Vanilla starting items not fully suppressed (sometimes bleeds through?)
-- [ ] No custom research bench - using vanilla lab + solar panel as workaround
-- [ ] Player needs power for lab - Era 1 should have a void-powered Field Notebook Station
-- [ ] No fluid system yet - water is a simple item instead of a fluid
+- [ ] No custom research bench -- using vanilla lab + solar panel as workaround
+- [ ] Player needs power for lab -- Era 1 should have a void-powered Field Notebook Station
+- [ ] No fluid system yet -- water is a simple item instead of a fluid
 
 ### Needs Adding
 - [ ] Biological Web system (scripts/bioweb.lua) - THE signature mechanic
@@ -31,10 +38,11 @@
 
 ### Working
 - [x] 61 items load correctly
-- [x] 47 recipes craftable
+- [x] 46 recipes craftable (was 47, removed duplicate cattail fiber recipe)
 - [x] 7 machines placeable (colored box sprites)
 - [x] 9 technologies in tech tree
-- [x] Fiber chain: wild grass -> plant fiber -> fiber cord
+- [x] Fiber cord: wild grass -> fiber cord (direct recipe, bypasses plant fiber intermediate)
+- [x] Plant fiber: wild grass -> plant fiber (separate recipe for baskets/construction)
 - [x] Grain chain: grain heads -> rough flour + chaff (at grinding slab)
 - [x] Flatbread: flour + water -> flatbread (at fire pit)
 - [x] Fire pit uses peat brick as fuel, produces ash
@@ -42,13 +50,17 @@
 - [x] Seed extraction recipes work
 - [x] Science pack (OAK) craftable from 4 ingredients
 - [x] Community icons for wheat, flour, seeds, compost, food items
+- [x] Grinding Slab 0.5x speed vs Water Wheel 2x speed (meaningful upgrade)
+
+### Known Limitations
+- Factorio 2.0 auto-craft chaining unreliable when multiple recipes produce the same item -- use direct recipes instead
+- `results = {{}}` format required in 2.0, old `result`/`result_count` is undocumented
 
 ### Needs Fixing
 - [ ] Many items still use tinted vanilla icons (hard to distinguish)
 - [ ] Machines are colored rectangles (need real sprites)
 - [ ] Some intermediate items share the same icon (cracked nut = nut icon, etc.)
 - [ ] No tooltips visible when hovering recipes in crafting menu (need recipe descriptions?)
-- [ ] Water icon might be wrong path (fluid/water.png)
 
 ### Needs Adding
 - [ ] Field Notebook Station (void-powered research bench, replaces vanilla lab for Era 1)
@@ -72,6 +84,8 @@
 - No sense of discovery since materials are given at start
 - Need forageable world plants ASAP to make Era 1 feel like exploration
 - The grind-grain -> flour + chaff -> classify chaff as waste -> compost loop works but player needs to know to do it
+- Mod feels unengaging at this stage -- expected, core loops (foraging, Bio Web, narrative) not yet implemented
+- Player currently needs vanilla lab + solar panel + power pole for research -- needs custom void-powered bench
 
 ---
 
