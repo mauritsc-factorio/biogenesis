@@ -48,23 +48,6 @@ data:extend({
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-b[process-cattail]",
   },
-  {
-    type = "recipe",
-    name = "bio-era1-strip-cattail-fiber",
-    category = "crafting",
-    energy_required = 1,
-    ingredients = {
-      {type = "item", name = "bio-era1-cattail", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 1},
-    },
-    main_product = "bio-era1-plant-fiber",
-    allow_as_intermediate = false,  -- don't use for auto-craft chains, use wild grass
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "a[fiber]-c[strip-cattail]",
-  },
 
   -- Recipe 3: 2 Plant Fiber -> 1 Fiber Cord (hand-craft)
   {
