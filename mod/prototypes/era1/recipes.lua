@@ -59,7 +59,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-fiber-cord", amount = 1},
     },
-    enabled = false,  -- unlocked by Fiber Arts
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-c[fiber-cord]",
   },
@@ -77,7 +77,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-bark-strip", amount = 2},
     },
-    enabled = false,  -- unlocked by Material Properties
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-d[bark-strip]",
   },
@@ -119,7 +119,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-flatbread", amount = 2},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "b[grain]-b[bake-flatbread]",
   },
@@ -178,7 +178,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-root-porridge", amount = 2},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "c[root]-c[root-porridge]",
   },
@@ -195,7 +195,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-root-porridge", amount = 2},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "c[root]-d[starch-porridge]",
   },
@@ -238,7 +238,7 @@ data:extend({
       {type = "item", name = "bio-era1-tannin-extract", amount = 1},
     },
     main_product = "bio-era1-leached-nut-meat",
-    enabled = false,  -- unlocked by Fiber Arts
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "d[nut]-b[leach-nuts]",
   },
@@ -255,7 +255,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-nut-cake", amount = 1},
     },
-    enabled = false,  -- unlocked by Thermal Processing (cooked food group)
+    enabled = true, (cooked food group)
     subgroup = "bio-era1-food",
     order = "d[nut]-c[nut-cake]",
   },
@@ -277,7 +277,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-raw-fungus", amount = 2},
     },
-    enabled = false,  -- unlocked by Material Properties (bark scraper)
+    enabled = true, (bark scraper)
     subgroup = "bio-era1-intermediates",
     order = "e[fungus]-a[scrape-fungus]",
   },
@@ -294,7 +294,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-dried-fungus", amount = 1},
     },
-    enabled = false,  -- unlocked by Fiber Arts (drying rack access)
+    enabled = true, (drying rack access)
     subgroup = "bio-era1-intermediates",
     order = "e[fungus]-b[dry-fungus]",
   },
@@ -311,7 +311,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-fungus-broth", amount = 2},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "e[fungus]-c[fungus-broth]",
   },
@@ -334,7 +334,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-immature-compost", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-a[compost-load]",
   },
@@ -351,7 +351,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-finished-compost", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-b[compost-mature]",
   },
@@ -373,7 +373,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-green-waste", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-c[waste-chaff]",
   },
@@ -390,7 +390,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-clover-mulch", amount = 2},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-d[clover-mulch]",
   },
@@ -407,7 +407,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-green-waste", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-e[waste-clover-mulch]",
   },
@@ -424,7 +424,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-brown-waste", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-f[waste-shell]",
   },
@@ -441,7 +441,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-brown-waste", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-g[waste-bark]",
   },
@@ -458,7 +458,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-brown-waste", amount = 2},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-h[waste-peat]",
   },
@@ -475,7 +475,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-green-waste", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "f[compost]-i[waste-grass]",
   },
@@ -516,7 +516,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-trail-mix", amount = 3},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-food",
     order = "g[fuel]-b[trail-mix]",
   },
@@ -597,7 +597,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-knapping-blade", amount = 1},
     },
-    enabled = false,  -- unlocked by Material Properties
+    enabled = true,
     subgroup = "bio-era1-tools",
     order = "i[tools]-b[knapping-blade]",
   },
@@ -632,7 +632,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-leaching-basket", amount = 1},
     },
-    enabled = false,  -- unlocked by Fiber Arts
+    enabled = true,
     subgroup = "bio-era1-machines",
     order = "i[tools]-d[leaching-basket]",
   },
@@ -649,7 +649,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-digging-stick", amount = 1},
     },
-    enabled = false,  -- unlocked by Material Properties
+    enabled = true,
     subgroup = "bio-era1-tools",
     order = "i[tools]-e[digging-stick]",
   },
@@ -667,7 +667,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-bark-scraper", amount = 1},
     },
-    enabled = false,  -- unlocked by Material Properties
+    enabled = true,
     subgroup = "bio-era1-tools",
     order = "i[tools]-f[bark-scraper]",
   },
@@ -685,7 +685,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-drying-rack-frame", amount = 1},
     },
-    enabled = false,  -- unlocked by Fiber Arts
+    enabled = true,
     subgroup = "bio-era1-machines",
     order = "i[tools]-g[drying-rack]",
   },
@@ -704,7 +704,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-pestle", amount = 1},
     },
-    enabled = false,  -- unlocked by Fiber Arts
+    enabled = true,
     subgroup = "bio-era1-tools",
     order = "i[tools]-h[pestle]",
   },
@@ -728,7 +728,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-stone-fire-pit", amount = 1},
     },
-    enabled = false,  -- unlocked by Thermal Processing
+    enabled = true,
     subgroup = "bio-era1-machines",
     order = "j[infra]-a[stone-fire-pit]",
   },
@@ -766,7 +766,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-compost-heap", amount = 1},
     },
-    enabled = false,  -- unlocked by Decomposition Basics
+    enabled = true,
     subgroup = "bio-era1-machines",
     order = "j[infra]-c[compost-heap]",
   },
@@ -914,7 +914,7 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-observational-analysis-kit", amount = 2},
     },
-    enabled = false,  -- unlocked by Decomposition Basics (need compost chain)
+    enabled = true, (need compost chain)
     subgroup = "bio-era1-science",
     order = "z[science]-a[oak]",
   },
