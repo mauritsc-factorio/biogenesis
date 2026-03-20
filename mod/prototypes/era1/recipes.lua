@@ -10,7 +10,7 @@
 -------------------------------------------------------------------------------
 data:extend({
   -- Recipe 1: Wild Grass -> 2 Plant Fiber (hand-craft)
-  -- Single-item results array for Factorio 2.0 compatibility
+  -- Keep minimal flags — defaults (all true) handle auto-craft chaining
   {
     type = "recipe",
     name = "bio-era1-process-wild-grass",
@@ -22,10 +22,6 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-plant-fiber", amount = 2},
     },
-    main_product = "bio-era1-plant-fiber",
-    allow_as_intermediate = true,
-    allow_intermediates = true,
-    allow_decomposition = true,
     enabled = true,
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-a[process-wild-grass]",
@@ -61,7 +57,6 @@ data:extend({
     results = {
       {type = "item", name = "bio-era1-fiber-cord", amount = 1},
     },
-    allow_intermediates = true,  -- auto-craft plant fiber from wild grass
     enabled = false,  -- unlocked by Fiber Arts
     subgroup = "bio-era1-intermediates",
     order = "a[fiber]-c[fiber-cord]",
