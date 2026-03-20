@@ -84,7 +84,7 @@ script.on_event(defines.events.on_tick, function(event)
       player.insert({name = "stone", count = 20})
 
       -- Grant Forager's Eye
-      grant_foragers_eye(player.force)
+      grant_free_techs(player.force)
 
       -- Done with this player
       storage.pending_player_setup[player_index] = nil
