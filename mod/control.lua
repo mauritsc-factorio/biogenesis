@@ -3,15 +3,28 @@
 -------------------------------------------------------------------------------
 -- AUTO-GRANT: Forager's Eye
 -------------------------------------------------------------------------------
-local function grant_foragers_eye(force)
-  if force and force.technologies["bio-era1-foragers-eye"] then
-    force.technologies["bio-era1-foragers-eye"].researched = true
+-- Auto-grant all free (no-cost) Era 1 techs so the player doesn't have
+-- to manually click through 5 empty researches.
+local free_techs = {
+  "bio-era1-foragers-eye",
+  "bio-era1-material-properties",
+  "bio-era1-fiber-arts",
+  "bio-era1-thermal-processing",
+  "bio-era1-decomposition-basics",
+}
+
+local function grant_free_techs(force)
+  if not force then return end
+  for _, tech_name in ipairs(free_techs) do
+    if force.technologies[tech_name] then
+      force.technologies[tech_name].researched = true
+    end
   end
 end
 
 script.on_init(function()
   for _, force in pairs(game.forces) do
-    grant_foragers_eye(force)
+    grant_free_techs(force)
   end
   storage.pending_player_setup = storage.pending_player_setup or {}
 end)
