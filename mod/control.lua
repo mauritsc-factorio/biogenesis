@@ -100,17 +100,33 @@ end)
 
 -------------------------------------------------------------------------------
 -- MAP GENERATION
--- On chunk generation: destroy vanilla entities (resources, trees, rocks, etc.)
--- that spawn on the grass island. The 3×3 island itself is placed by
--- mapgen.lua via tile autoplace (required for player spawn finder).
+-- On chunk generation: replace ALL tiles with deepwater except the 3×3 grass
+-- island at origin, and destroy all vanilla entities.
+-- Vanilla tile autoplace is left intact in the data phase so the spawn finder
+-- can locate land near origin. We replace tiles here before the player sees them.
 -------------------------------------------------------------------------------
 
 script.on_event(defines.events.on_chunk_generated, function(event)
   local surface = event.surface
   if surface.name ~= "nauvis" then return end
 
-  -- Destroy all vanilla entities in this chunk
-  local entities = surface.find_entities(event.area)
+  local area = event.area
+  local tiles = {}
+
+  -- Replace every tile in this chunk
+  for x = area.left_top.x, area.right_bottom.x - 1 do
+    for y = area.left_top.y, area.right_bottom.y - 1 do
+      if x >= -1 and x <= 1 and y >= -1 and y <= 1 then
+        table.insert(tiles, {name = "grass-1", position = {x, y}})
+      else
+        table.insert(tiles, {name = "deepwater", position = {x, y}})
+      end
+    end
+  end
+  surface.set_tiles(tiles)
+
+  -- Destroy all vanilla entities (resources, trees, rocks, fish, enemies)
+  local entities = surface.find_entities(area)
   for _, entity in pairs(entities) do
     if entity.valid and entity.type ~= "character" then
       local name = entity.name
