@@ -9,7 +9,6 @@
 -- VANILLA ITEMS TO KEEP (needed until we have bio equivalents)
 -------------------------------------------------------------------------------
 local keep_items = {
-  ["landfill"] = true,  -- TODO: fix bio reed mat place_as_tile for 2.0
 }
 
 -------------------------------------------------------------------------------
