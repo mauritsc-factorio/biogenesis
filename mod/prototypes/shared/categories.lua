@@ -2,14 +2,35 @@
 -- Item groups, subgroups, and recipe categories.
 
 -------------------------------------------------------------------------------
--- ITEM GROUP: Main mod tab in the crafting menu
+-- ITEM GROUPS: Tabs in the crafting menu
 -------------------------------------------------------------------------------
 data:extend({
   {
     type = "item-group",
-    name = "biogenesis",
-    order = "z-biogenesis",
+    name = "bio-crops",
+    order = "z-bio-a",
     icon = "__base__/graphics/icons/tree-09.png",
+    icon_size = 64,
+  },
+  {
+    type = "item-group",
+    name = "bio-processing",
+    order = "z-bio-b",
+    icon = "__base__/graphics/icons/stone-furnace.png",
+    icon_size = 64,
+  },
+  {
+    type = "item-group",
+    name = "bio-building",
+    order = "z-bio-c",
+    icon = "__base__/graphics/icons/assembling-machine-1.png",
+    icon_size = 64,
+  },
+  {
+    type = "item-group",
+    name = "bio-science",
+    order = "z-bio-d",
+    icon = "__base__/graphics/icons/lab.png",
     icon_size = 64,
   },
 })
@@ -19,20 +40,26 @@ data:extend({
 -- Named to reinforce biology: menu itself teaches the player they're doing biology.
 -------------------------------------------------------------------------------
 local subgroups = {
-  -- Era 1: Tidal Observations
-  { name = "bio-era1-seeds",          order = "a-a", },  -- Seeds & Crops
-  { name = "bio-era1-raw",            order = "a-b", },  -- Marine Harvests
-  { name = "bio-era1-processing",     order = "a-c", },  -- Fiber & Material Processing
-  { name = "bio-era1-saltwater",      order = "a-d", },  -- Saltwater Processing
-  { name = "bio-era1-minerals",       order = "a-e", },  -- Mineral Extraction
-  { name = "bio-era1-fuel",           order = "a-f", },  -- Fuel & Drying
-  { name = "bio-era1-food",           order = "a-g", },  -- Coastal Food
-  { name = "bio-era1-composting",     order = "a-h", },  -- Composting
-  { name = "bio-era1-tools",          order = "a-i", },  -- Stone Tools
-  { name = "bio-era1-machines",       order = "a-j", },  -- Tidal Machines
-  { name = "bio-era1-logistics",      order = "a-k", },  -- Kelp Logistics
-  { name = "bio-era1-land",           order = "a-l", },  -- Land Expansion
-  { name = "bio-era1-science",        order = "a-z", },  -- Coastal Science
+  -- Tab: Crops (bio-crops)
+  { name = "bio-era1-seeds",          order = "a-a", group = "bio-crops" },
+  { name = "bio-era1-raw",            order = "a-b", group = "bio-crops" },
+  { name = "bio-era1-composting",     order = "a-c", group = "bio-crops" },
+  { name = "bio-era1-food",           order = "a-d", group = "bio-crops" },
+
+  -- Tab: Processing (bio-processing)
+  { name = "bio-era1-processing",     order = "a-a", group = "bio-processing" },
+  { name = "bio-era1-saltwater",      order = "a-b", group = "bio-processing" },
+  { name = "bio-era1-minerals",       order = "a-c", group = "bio-processing" },
+  { name = "bio-era1-fuel",           order = "a-d", group = "bio-processing" },
+
+  -- Tab: Building (bio-building)
+  { name = "bio-era1-machines",       order = "a-a", group = "bio-building" },
+  { name = "bio-era1-logistics",      order = "a-b", group = "bio-building" },
+  { name = "bio-era1-tools",          order = "a-c", group = "bio-building" },
+  { name = "bio-era1-land",           order = "a-d", group = "bio-building" },
+
+  -- Tab: Science (bio-science)
+  { name = "bio-era1-science",        order = "a-a", group = "bio-science" },
 
   -- Era 2: Applied Cultivation
   { name = "bio-era2-raw",            order = "b-a", },  -- Bacterial Metals
@@ -98,7 +125,7 @@ for _, sg in pairs(subgroups) do
   table.insert(subgroup_prototypes, {
     type = "item-subgroup",
     name = sg.name,
-    group = "biogenesis",
+    group = sg.group or "bio-processing",  -- default for future eras
     order = sg.order,
   })
 end
