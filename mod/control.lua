@@ -311,11 +311,50 @@ script.on_nth_tick(60, function()
   check_seedling_growth()
 end)
 
--- Track seedling placement (player builds entity from seed item)
+-- Entities that must be placed adjacent to water
+local WATER_ADJACENT = {
+  ["bio-era1-saltwater-basin"] = true,
+}
+
+local function has_adjacent_water(entity)
+  local pos = entity.position
+  local surface = entity.surface
+  for _, offset in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
+    local tile = surface.get_tile(pos.x + offset[1], pos.y + offset[2])
+    if tile and tile.valid then
+      local name = tile.name
+      if name == "water" or name == "deepwater" or name == "water-green"
+        or name == "water-shallow" or name == "water-mud" then
+        return true
+      end
+    end
+  end
+  return false
+end
+
+-- Track seedling placement + enforce water-adjacent placement
 script.on_event(defines.events.on_built_entity, function(event)
   local entity = event.entity
-  if entity and entity.valid and SEEDLING_TO_MATURE[entity.name] then
+  if not entity or not entity.valid then return end
+
+  -- Seedling tracking
+  if SEEDLING_TO_MATURE[entity.name] then
     register_seedling(entity)
+  end
+
+  -- Water-adjacent check
+  if WATER_ADJACENT[entity.name] then
+    if not has_adjacent_water(entity) then
+      local player = game.get_player(event.player_index)
+      if player then
+        player.insert({name = entity.minable.result or entity.name, count = 1})
+        player.create_local_flying_text({
+          text = "Must be placed next to water",
+          position = entity.position,
+        })
+      end
+      entity.destroy()
+    end
   end
 end)
 
