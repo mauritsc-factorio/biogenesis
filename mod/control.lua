@@ -31,38 +31,12 @@ script.on_event(defines.events.on_tick, function(event)
       local ammo_inv = player.get_inventory(defines.inventory.character_ammo)
       if ammo_inv then ammo_inv.clear() end
 
-      -- Tools
+      -- Minimal starting kit: tools + a few basics to bootstrap
       player.insert({name = "bio-era1-crude-hammer", count = 1})
       player.insert({name = "bio-era1-knapping-blade", count = 1})
-
-      -- Grassland biome (generous for testing)
-      player.insert({name = "bio-era1-wild-grass", count = 50})
-      player.insert({name = "bio-era1-wild-grain-head", count = 40})
-      player.insert({name = "bio-era1-clover-patch", count = 20})
-
-      -- Forest biome
-      player.insert({name = "bio-era1-forest-nut-cluster", count = 20})
-      player.insert({name = "bio-era1-bracket-fungus", count = 20})
-      player.insert({name = "bio-era1-fallen-fruit", count = 10})
-
-      -- Wetland biome
-      player.insert({name = "bio-era1-cattail", count = 20})
-      player.insert({name = "bio-era1-bog-root", count = 20})
-      player.insert({name = "bio-era1-peat-moss", count = 20})
-
-      -- Rocky biome
-      player.insert({name = "bio-era1-lichen-scraping", count = 10})
-      player.insert({name = "bio-era1-rock-cress", count = 10})
-
-      -- Water (item form until fluid infrastructure)
-      player.insert({name = "bio-era1-water", count = 50})
-
-      -- Basic resources for building
-      player.insert({name = "wood", count = 50})
-      player.insert({name = "stone", count = 50})
-
-      -- Field Notebook Station for Era 1 research (void-powered, no electricity needed)
-      player.insert({name = "bio-era1-field-notebook-station", count = 1})
+      player.insert({name = "wood", count = 10})
+      player.insert({name = "stone", count = 10})
+      player.insert({name = "bio-era1-water", count = 10})
 
       -- Done with this player
       storage.pending_player_setup[player_index] = nil
