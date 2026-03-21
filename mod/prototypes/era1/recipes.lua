@@ -317,7 +317,7 @@ data:extend({
     type = "recipe", name = "bio-era1-collect-saltwater",
     category = "saltwater-collection", energy_required = 10,
     ingredients = {},
-    results = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    results = {{type = "fluid", name = "bio-era1-saltwater", amount = 5}},
     enabled = false, subgroup = "bio-era1-saltwater", order = "c[salt]-a",
   },
   -- #18: Build Saltwater Basin
@@ -341,10 +341,10 @@ data:extend({
   {
     type = "recipe", name = "bio-era1-evaporate-saltwater",
     category = "evaporation", energy_required = 15,
-    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    ingredients = {{type = "fluid", name = "bio-era1-saltwater", amount = 5}},
     results = {
       {type = "item", name = "bio-era1-sea-salt", amount = 2},
-      {type = "item", name = "bio-era1-brackish-water", amount = 3},
+      {type = "fluid", name = "bio-era1-brackish-water", amount = 3},
     },
     main_product = "bio-era1-sea-salt",
     enabled = false, subgroup = "bio-era1-saltwater", order = "c[salt]-b",
@@ -473,10 +473,10 @@ data:extend({
   {
     type = "recipe", name = "bio-era1-precipitate-calcium",
     category = "calcium-precipitation", energy_required = 20,
-    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    ingredients = {{type = "fluid", name = "bio-era1-saltwater", amount = 5}},
     results = {
       {type = "item", name = "bio-era1-calcium-precipitate", amount = 1},
-      {type = "item", name = "bio-era1-brackish-water", amount = 1},
+      {type = "fluid", name = "bio-era1-brackish-water", amount = 1},
     },
     main_product = "bio-era1-calcium-precipitate",
     enabled = false, subgroup = "bio-era1-minerals", order = "f[calcium]-a",
@@ -633,10 +633,10 @@ data:extend({
   {
     type = "recipe", name = "bio-era1-desalinate",
     category = "desalination", energy_required = 20,
-    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    ingredients = {{type = "fluid", name = "bio-era1-saltwater", amount = 5}},
     results = {
-      {type = "item", name = "bio-era1-freshwater", amount = 3},
-      {type = "item", name = "bio-era1-concentrated-brine", amount = 1},
+      {type = "fluid", name = "bio-era1-freshwater", amount = 3},
+      {type = "fluid", name = "bio-era1-concentrated-brine", amount = 1},
     },
     main_product = "bio-era1-freshwater",
     enabled = false, subgroup = "bio-era1-saltwater", order = "j[desal]-a",
@@ -645,7 +645,7 @@ data:extend({
   {
     type = "recipe", name = "bio-era1-precipitate-from-brine",
     category = "calcium-precipitation", energy_required = 10,
-    ingredients = {{type = "item", name = "bio-era1-concentrated-brine", amount = 3}},
+    ingredients = {{type = "fluid", name = "bio-era1-concentrated-brine", amount = 3}},
     results = {{type = "item", name = "bio-era1-calcium-precipitate", amount = 2}},
     enabled = false, subgroup = "bio-era1-minerals", order = "j[desal]-b",
   },
@@ -655,7 +655,7 @@ data:extend({
     category = "kiln-firing", energy_required = 6,
     ingredients = {
       {type = "item", name = "bio-era1-rough-flour", amount = 1},
-      {type = "item", name = "bio-era1-freshwater", amount = 1},
+      {type = "fluid", name = "bio-era1-freshwater", amount = 1},
     },
     results = {{type = "item", name = "bio-era1-flatbread", amount = 2}},
     enabled = false, subgroup = "bio-era1-food", order = "j[desal]-c",
@@ -666,7 +666,7 @@ data:extend({
     category = "kiln-firing", energy_required = 5,
     ingredients = {
       {type = "item", name = "bio-era1-rough-flour", amount = 1},
-      {type = "item", name = "bio-era1-freshwater", amount = 1},
+      {type = "fluid", name = "bio-era1-freshwater", amount = 1},
     },
     results = {{type = "item", name = "bio-era1-grain-porridge", amount = 2}},
     enabled = false, subgroup = "bio-era1-food", order = "j[desal]-d",

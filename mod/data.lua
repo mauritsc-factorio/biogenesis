@@ -8,6 +8,7 @@ require("lib")
 require("prototypes.shared.categories")
 
 -- Era 1: Tidal Observations
+require("prototypes.era1.fluids")
 require("prototypes.era1.items")
 require("prototypes.era1.logistics")
 require("prototypes.era1.entities")

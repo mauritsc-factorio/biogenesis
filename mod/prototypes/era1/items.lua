@@ -130,47 +130,15 @@ data:extend({
 })
 
 -------------------------------------------------------------------------------
--- SALTWATER CHAIN (5 items)
+-- SALTWATER CHAIN (1 item — others are fluids now)
 -------------------------------------------------------------------------------
 data:extend({
-  {
-    type = "item",
-    name = "bio-era1-saltwater",
-    icons = tinted_icon(V .. "fluid/water.png", TEAL),
-    subgroup = "bio-era1-saltwater",
-    order = "a[saltwater]",
-    stack_size = 100,
-  },
   {
     type = "item",
     name = "bio-era1-sea-salt",
     icons = tinted_icon(V .. "stone.png", SALT_WHITE),
     subgroup = "bio-era1-saltwater",
     order = "b[sea-salt]",
-    stack_size = 100,
-  },
-  {
-    type = "item",
-    name = "bio-era1-brackish-water",
-    icons = tinted_icon(V .. "fluid/water.png", LIGHT_BROWN),
-    subgroup = "bio-era1-saltwater",
-    order = "c[brackish-water]",
-    stack_size = 100,
-  },
-  {
-    type = "item",
-    name = "bio-era1-freshwater",
-    icons = tinted_icon(V .. "fluid/water.png", BLUE),
-    subgroup = "bio-era1-saltwater",
-    order = "d[freshwater]",
-    stack_size = 100,
-  },
-  {
-    type = "item",
-    name = "bio-era1-concentrated-brine",
-    icons = tinted_icon(V .. "fluid/water.png", ORANGE),
-    subgroup = "bio-era1-saltwater",
-    order = "e[concentrated-brine]",
     stack_size = 100,
   },
 })

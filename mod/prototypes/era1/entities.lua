@@ -50,6 +50,13 @@ data:extend({{
   crafting_speed = 1,
   energy_source = electric_energy(1),
   energy_usage = "1kW",
+  fluid_boxes = {
+    {
+      production_type = "output",
+      pipe_connections = {{ flow_direction = "output", position = {0, 1} }},
+      volume = 200,
+    },
+  },
 }})
 
 -- 2. Solar Evaporation Tray — 1x1, 1kW
@@ -68,6 +75,18 @@ data:extend({{
   crafting_speed = 1,
   energy_source = electric_energy(1),
   energy_usage = "1kW",
+  fluid_boxes = {
+    {
+      production_type = "input",
+      pipe_connections = {{ flow_direction = "input", position = {0, -1} }},
+      volume = 200,
+    },
+    {
+      production_type = "output",
+      pipe_connections = {{ flow_direction = "output", position = {0, 1} }},
+      volume = 200,
+    },
+  },
 }})
 
 -- 3. Drying Rack — 2x1, 1kW
@@ -110,6 +129,13 @@ data:extend({{
     emissions_per_minute = {pollution = 2},
   },
   energy_usage = "30kW",
+  fluid_boxes = {
+    {
+      production_type = "input",
+      pipe_connections = {{ flow_direction = "input", position = {0, -2} }},
+      volume = 200,
+    },
+  },
 }})
 
 -- 5. Biomass Compressor — 2x1, 2kW
@@ -146,6 +172,18 @@ data:extend({{
   crafting_speed = 1,
   energy_source = electric_energy(2),
   energy_usage = "2kW",
+  fluid_boxes = {
+    {
+      production_type = "input",
+      pipe_connections = {{ flow_direction = "input", position = {0, -1} }},
+      volume = 200,
+    },
+    {
+      production_type = "output",
+      pipe_connections = {{ flow_direction = "output", position = {0, 1} }},
+      volume = 200,
+    },
+  },
 }})
 
 -- 7. Grinding Slab — 2x1, 1kW, 0.5 craft speed (slow)
@@ -182,6 +220,23 @@ data:extend({{
   crafting_speed = 1,
   energy_source = electric_energy(2),
   energy_usage = "2kW",
+  fluid_boxes = {
+    {
+      production_type = "input",
+      pipe_connections = {{ flow_direction = "input", position = {0, -1} }},
+      volume = 200,
+    },
+    {
+      production_type = "output",
+      pipe_connections = {{ flow_direction = "output", position = {-1, 1} }},
+      volume = 200,
+    },
+    {
+      production_type = "output",
+      pipe_connections = {{ flow_direction = "output", position = {1, 1} }},
+      volume = 200,
+    },
+  },
 }})
 
 -- 9. Compost Heap — 2x1, 1kW

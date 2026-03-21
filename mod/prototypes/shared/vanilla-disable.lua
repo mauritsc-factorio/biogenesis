@@ -9,6 +9,8 @@
 -- VANILLA ITEMS TO KEEP (needed until we have bio equivalents)
 -------------------------------------------------------------------------------
 local keep_items = {
+  ["pipe"] = true,
+  ["pipe-to-ground"] = true,
 }
 
 -------------------------------------------------------------------------------

@@ -31,9 +31,9 @@ local ACTION_TECHS = {
   },
   {
     tech = "bio-era1-solar-evaporation",
-    trigger = "pickup",
-    item = "bio-era1-saltwater",
-    count = 5,
+    trigger = "build",
+    entity = "bio-era1-saltwater-basin",
+    count = 1,
     message = "Seawater collected. Solar heat will separate what's dissolved — salt, minerals, potential.",
   },
   {
@@ -221,6 +221,7 @@ local function increment_action_counter(force, trigger_type, item_name)
   -- Check if this event matches the current tech's trigger
   if tech_def.trigger ~= trigger_type then return end
   if tech_def.item and tech_def.item ~= item_name then return end
+  if tech_def.entity and tech_def.entity ~= item_name then return end
 
   local counters = storage.action_counters[fi] or {}
   counters[idx] = (counters[idx] or 0) + 1
@@ -354,6 +355,14 @@ script.on_event(defines.events.on_built_entity, function(event)
         })
       end
       entity.destroy()
+    end
+  end
+
+  -- "build" trigger for action-gated techs
+  if event.player_index then
+    local player = game.get_player(event.player_index)
+    if player then
+      increment_action_counter(player.force, "build", entity.name)
     end
   end
 end)

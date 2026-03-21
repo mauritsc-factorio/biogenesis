@@ -21,6 +21,10 @@ biogenesis.starting_items = {
   ["bio-era1-kelp-stalk-belt"]      = 50,
   ["bio-era1-kelp-stalk-inserter"]  = 20,
 
+  -- Piping (for fluid connections between machines)
+  ["pipe"]                          = 20,
+  ["pipe-to-ground"]                = 4,
+
   -- Tools (consumed when building Drying Rack and Biomass Compressor)
   ["bio-era1-crude-hammer"]         = 1,
   ["bio-era1-knapping-blade"]       = 1,
