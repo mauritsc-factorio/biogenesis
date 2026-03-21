@@ -6,10 +6,18 @@
 -- Factorio 2.0: "hidden" is a boolean property on prototypes, NOT a flag.
 
 -------------------------------------------------------------------------------
--- HIDE ALL VANILLA RECIPES
+-- VANILLA ITEMS TO KEEP (needed until we have bio equivalents)
+-------------------------------------------------------------------------------
+local keep_items = {
+  ["landfill"] = true,
+  ["small-electric-pole"] = true,
+}
+
+-------------------------------------------------------------------------------
+-- HIDE ALL VANILLA RECIPES (except kept items)
 -------------------------------------------------------------------------------
 for name, recipe in pairs(data.raw.recipe) do
-  if not string.match(name, "^bio%-") then
+  if not string.match(name, "^bio%-") and not keep_items[name] then
     recipe.hidden = true
   end
 end

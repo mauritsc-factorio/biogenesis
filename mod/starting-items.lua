@@ -12,9 +12,11 @@ biogenesis.starting_items = {
 
   -- Land expansion
   ["bio-era1-woven-reed-mat"]       = 50,
+  ["landfill"]                       = 100,
 
   -- Power
   ["bio-era1-tidal-power-generator"] = 1,
+  ["small-electric-pole"]            = 20,
 
   -- Logistics
   ["bio-era1-kelp-stalk-belt"]      = 50,
