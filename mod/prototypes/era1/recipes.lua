@@ -16,7 +16,7 @@ data:extend({
     ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 1}},
     results = {{type = "item", name = "bio-era1-plant-fiber", amount = 2}},
     enabled = true,
-    subgroup = "bio-era1-intermediates",
+    subgroup = "bio-era1-processing",
     order = "a[fiber]-a",
   },
   -- #2: Twist Fiber Cord
@@ -28,7 +28,7 @@ data:extend({
     ingredients = {{type = "item", name = "bio-era1-plant-fiber", amount = 2}},
     results = {{type = "item", name = "bio-era1-fiber-cord", amount = 1}},
     enabled = true,
-    subgroup = "bio-era1-intermediates",
+    subgroup = "bio-era1-processing",
     order = "a[fiber]-b",
   },
   -- #3: Split Kelp → Frond + Stalk
@@ -119,7 +119,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 1}},
     results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-c",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-c",
   },
   -- #6: Glasswort → Green Waste
   {
@@ -127,7 +127,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-glasswort", amount = 1}},
     results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-d",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-d",
   },
   -- #7: Kelp Frond → Green Waste
   {
@@ -135,7 +135,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-kelp-frond", amount = 1}},
     results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-e",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-e",
   },
   -- #8: Chaff → Green Waste
   {
@@ -143,7 +143,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-chaff", amount = 1}},
     results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-f",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-f",
   },
   -- #9: Kelp Stalk → Brown Waste
   {
@@ -151,7 +151,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-kelp-stalk", amount = 1}},
     results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-g",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-g",
   },
   -- #10: Dried Kelp → Brown Waste
   {
@@ -159,7 +159,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-dried-kelp", amount = 1}},
     results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-h",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-h",
   },
   -- #11: Ash → Brown Waste
   {
@@ -167,7 +167,7 @@ data:extend({
     category = "crafting", energy_required = 0.5,
     ingredients = {{type = "item", name = "bio-era1-ash", amount = 1}},
     results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-i",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-i",
   },
 })
 
@@ -184,7 +184,7 @@ data:extend({
       {type = "item", name = "bio-era1-brown-waste", amount = 5},
     },
     results = {{type = "item", name = "bio-era1-immature-compost", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-a",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-a",
   },
   -- #13: Mature Compost
   {
@@ -192,7 +192,7 @@ data:extend({
     category = "composting", energy_required = 30,
     ingredients = {{type = "item", name = "bio-era1-immature-compost", amount = 1}},
     results = {{type = "item", name = "bio-era1-finished-compost", amount = 1}},
-    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-b",
+    enabled = true, subgroup = "bio-era1-composting", order = "k[compost]-b",
   },
 })
 
@@ -376,7 +376,7 @@ data:extend({
       {type = "item", name = "bio-era1-ash", amount = 1},
     },
     main_product = "bio-era1-dried-kelp",
-    enabled = false, subgroup = "bio-era1-intermediates", order = "d[kelp]-a",
+    enabled = false, subgroup = "bio-era1-fuel", order = "d[kelp]-a",
   },
   -- #22: Roast Kelp → Roasted Kelp
   {
@@ -396,7 +396,7 @@ data:extend({
       {type = "item", name = "bio-era1-ash", amount = 1},
     },
     main_product = "bio-era1-kelp-charcoal",
-    enabled = false, subgroup = "bio-era1-intermediates", order = "d[kelp]-c",
+    enabled = false, subgroup = "bio-era1-fuel", order = "d[kelp]-c",
   },
   -- #24: Build Drying Rack (consumes Knapping Blade)
   {
@@ -479,7 +479,7 @@ data:extend({
       {type = "item", name = "bio-era1-brackish-water", amount = 1},
     },
     main_product = "bio-era1-calcium-precipitate",
-    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-a",
+    enabled = false, subgroup = "bio-era1-minerals", order = "f[calcium]-a",
   },
   -- #32: Calcine → Calcite
   {
@@ -487,7 +487,7 @@ data:extend({
     category = "kiln-firing", energy_required = 10,
     ingredients = {{type = "item", name = "bio-era1-calcium-precipitate", amount = 2}},
     results = {{type = "item", name = "bio-era1-calcite", amount = 1}},
-    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-b",
+    enabled = false, subgroup = "bio-era1-minerals", order = "f[calcium]-b",
   },
   -- #33: Burn Glasswort → Glasswort Ash
   {
@@ -495,7 +495,7 @@ data:extend({
     category = "kiln-firing", energy_required = 8,
     ingredients = {{type = "item", name = "bio-era1-glasswort", amount = 2}},
     results = {{type = "item", name = "bio-era1-glasswort-ash", amount = 1}},
-    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-c",
+    enabled = false, subgroup = "bio-era1-minerals", order = "f[calcium]-c",
   },
   -- #34: Build Calcium Vat
   {
@@ -603,7 +603,7 @@ data:extend({
       {type = "item", name = "bio-era1-chaff", amount = 1},
     },
     main_product = "bio-era1-rough-flour",
-    enabled = false, subgroup = "bio-era1-intermediates", order = "i[grain]-a",
+    enabled = false, subgroup = "bio-era1-food", order = "i[grain]-a",
   },
 })
 
@@ -647,7 +647,7 @@ data:extend({
     category = "calcium-precipitation", energy_required = 10,
     ingredients = {{type = "item", name = "bio-era1-concentrated-brine", amount = 3}},
     results = {{type = "item", name = "bio-era1-calcium-precipitate", amount = 2}},
-    enabled = false, subgroup = "bio-era1-intermediates", order = "j[desal]-b",
+    enabled = false, subgroup = "bio-era1-minerals", order = "j[desal]-b",
   },
   -- #48: Bake Flatbread
   {

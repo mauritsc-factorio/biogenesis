@@ -20,15 +20,18 @@ data:extend({
 -------------------------------------------------------------------------------
 local subgroups = {
   -- Era 1: Tidal Observations
-  { name = "bio-era1-raw",            order = "a-a", },  -- Marine Harvests
-  { name = "bio-era1-saltwater",      order = "a-b", },  -- Saltwater Processing
-  { name = "bio-era1-intermediates",  order = "a-c", },  -- Tidal Materials
-  { name = "bio-era1-tools",          order = "a-d", },  -- Stone Tools
-  { name = "bio-era1-food",           order = "a-e", },  -- Coastal Food
-  { name = "bio-era1-seeds",          order = "a-f", },  -- Seeds
-  { name = "bio-era1-machines",       order = "a-g", },  -- Tidal Machines
-  { name = "bio-era1-logistics",      order = "a-h", },  -- Kelp Logistics
-  { name = "bio-era1-land",           order = "a-i", },  -- Land Expansion
+  { name = "bio-era1-seeds",          order = "a-a", },  -- Seeds & Crops
+  { name = "bio-era1-raw",            order = "a-b", },  -- Marine Harvests
+  { name = "bio-era1-processing",     order = "a-c", },  -- Fiber & Material Processing
+  { name = "bio-era1-saltwater",      order = "a-d", },  -- Saltwater Processing
+  { name = "bio-era1-minerals",       order = "a-e", },  -- Mineral Extraction
+  { name = "bio-era1-fuel",           order = "a-f", },  -- Fuel & Drying
+  { name = "bio-era1-food",           order = "a-g", },  -- Coastal Food
+  { name = "bio-era1-composting",     order = "a-h", },  -- Composting
+  { name = "bio-era1-tools",          order = "a-i", },  -- Stone Tools
+  { name = "bio-era1-machines",       order = "a-j", },  -- Tidal Machines
+  { name = "bio-era1-logistics",      order = "a-k", },  -- Kelp Logistics
+  { name = "bio-era1-land",           order = "a-l", },  -- Land Expansion
   { name = "bio-era1-science",        order = "a-z", },  -- Coastal Science
 
   -- Era 2: Applied Cultivation
