@@ -1,25 +1,35 @@
 -- Biogenesis: Map Generation (data phase)
 -- Ocean-only world with a 3×3 grass island at the origin.
 
--- Noise expression helpers (Factorio 2.0 has no require-able noise module)
-local function var(name)
-  return { type = "variable", variable_name = name }
-end
+-------------------------------------------------------------------------------
+-- Define a named noise expression for the island probability.
+-- Factorio 2.0 requires all values in expression trees to be proper
+-- noise expression objects, not raw Lua numbers.
+-------------------------------------------------------------------------------
+local L = function(n) return { type = "literal-number", literal_value = n } end
+local V = function(name) return { type = "variable", variable_name = name } end
+local F = function(name, ...) return { type = "function-application", function_name = name, arguments = {...} } end
 
-local function apply(func, ...)
-  return { type = "function-application", function_name = func, arguments = {...} }
-end
-
-local x = var("x")
-local y = var("y")
-
--- distance² = x² + y²
-local dist_sq = apply("add", apply("multiply", x, x), apply("multiply", y, y))
-
--- Island probability: clamp(2.25 - dist², 0, 2.25) * 100
--- At (0,0): 2.25 * 100 = 225.  At (1,1): 0.25 * 100 = 25.  At (2,0): 0.
--- All 3×3 tiles (max dist² = 2) get probability > 1, beating deepwater.
-local island_prob = apply("multiply", apply("clamp", apply("subtract", 2.25, dist_sq), 0, 2.25), 100)
+-- island_prob = clamp(2.25 - (x² + y²), 0, 2.25) × 100
+-- At (0,0): prob=225. At (1,1): prob=25. At (2,0): prob=0.
+data:extend({{
+  type = "noise-expression",
+  name = "biogenesis-island-prob",
+  expression = F("multiply",
+    F("clamp",
+      F("subtract",
+        L(2.25),
+        F("add",
+          F("multiply", V("x"), V("x")),
+          F("multiply", V("y"), V("y"))
+        )
+      ),
+      L(0),
+      L(2.25)
+    ),
+    L(100)
+  ),
+}})
 
 -------------------------------------------------------------------------------
 -- SUPPRESS ALL LAND TILES (keep spec for planet refs, set probability to 0)
@@ -38,8 +48,8 @@ data.raw.tile["deepwater"].autoplace = {
 }
 
 -------------------------------------------------------------------------------
--- GRASS-1: 3×3 island at origin
+-- GRASS-1: 3×3 island at origin (reference the named expression)
 -------------------------------------------------------------------------------
 data.raw.tile["grass-1"].autoplace = {
-  probability_expression = island_prob,
+  probability_expression = "biogenesis-island-prob",
 }
