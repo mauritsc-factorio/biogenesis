@@ -119,7 +119,7 @@ script.on_event(defines.events.on_chunk_generated, function(event)
       if x >= -1 and x <= 1 and y >= -1 and y <= 1 then
         table.insert(tiles, {name = "grass-1", position = {x, y}})
       else
-        table.insert(tiles, {name = "deepwater", position = {x, y}})
+        table.insert(tiles, {name = "water", position = {x, y}})
       end
     end
   end
