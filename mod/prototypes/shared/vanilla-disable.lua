@@ -2,10 +2,11 @@
 -- Total conversion: hide all vanilla recipes, technologies, and items
 -- that conflict with our biological progression.
 -- Items themselves still exist (wood, stone, etc.) for use in our recipes.
+--
+-- Factorio 2.0: "hidden" is a boolean property on prototypes, NOT a flag.
 
 -------------------------------------------------------------------------------
 -- HIDE ALL VANILLA RECIPES
--- Keep only bio-prefixed recipes visible.
 -------------------------------------------------------------------------------
 for name, recipe in pairs(data.raw.recipe) do
   if not string.match(name, "^bio%-") then
@@ -15,7 +16,6 @@ end
 
 -------------------------------------------------------------------------------
 -- HIDE ALL VANILLA TECHNOLOGIES
--- Keep only bio-prefixed technologies visible.
 -------------------------------------------------------------------------------
 for name, tech in pairs(data.raw.technology) do
   if not string.match(name, "^bio%-") then
@@ -26,15 +26,10 @@ end
 
 -------------------------------------------------------------------------------
 -- DISABLE SPECIFIC VANILLA ENTITIES
--- Prevent placement of: mining drills, pumpjacks, oil refineries,
--- nuclear, military, rocket silo, Space Age platforms.
 -------------------------------------------------------------------------------
 local entities_to_disable = {
   ["mining-drill"] = {
     "electric-mining-drill", "burner-mining-drill",
-  },
-  ["furnace"] = {
-    -- Keep stone-furnace and steel-furnace (may be useful as base for bio-smelter)
   },
   ["assembling-machine"] = {
     "oil-refinery", "chemical-plant",
@@ -52,21 +47,18 @@ for entity_type, names in pairs(entities_to_disable) do
   for _, name in pairs(names) do
     local entity = data.raw[entity_type] and data.raw[entity_type][name]
     if entity then
-      if not entity.flags then entity.flags = {} end
-      table.insert(entity.flags, "hidden")
-      -- Remove from crafting menu by hiding the item
-      local item = data.raw.item[name]
-      if item then
-        if not item.flags then item.flags = {} end
-        table.insert(item.flags, "hidden")
-      end
+      entity.hidden = true
+    end
+    -- Hide the corresponding item too
+    local item = data.raw.item[name]
+    if item then
+      item.hidden = true
     end
   end
 end
 
 -------------------------------------------------------------------------------
 -- DISABLE MILITARY
--- No biters, no military. Peaceful world.
 -------------------------------------------------------------------------------
 local military_items = {
   "pistol", "submachine-gun", "shotgun", "combat-shotgun",
@@ -91,27 +83,19 @@ for _, name in pairs(military_items) do
   for _, item_type in pairs({"item", "gun", "ammo", "armor", "capsule", "tool"}) do
     local item = data.raw[item_type] and data.raw[item_type][name]
     if item then
-      if not item.flags then item.flags = {} end
-      if not biogenesis.lib.tablefind(item.flags, "hidden") then
-        table.insert(item.flags, "hidden")
-      end
+      item.hidden = true
     end
   end
 end
 
 -------------------------------------------------------------------------------
--- REMOVE VANILLA LAB INPUTS MODIFICATION
--- Our Field Notebook Station is the only research building.
--- Don't add TOK to vanilla lab — hide the vanilla lab instead.
+-- HIDE VANILLA LAB
 -------------------------------------------------------------------------------
 local vanilla_lab = data.raw["lab"]["lab"]
 if vanilla_lab then
-  if not vanilla_lab.flags then vanilla_lab.flags = {} end
-  table.insert(vanilla_lab.flags, "hidden")
-  -- Hide the lab item too
-  local lab_item = data.raw.item["lab"]
-  if lab_item then
-    if not lab_item.flags then lab_item.flags = {} end
-    table.insert(lab_item.flags, "hidden")
-  end
+  vanilla_lab.hidden = true
+end
+local lab_item = data.raw.item["lab"]
+if lab_item then
+  lab_item.hidden = true
 end

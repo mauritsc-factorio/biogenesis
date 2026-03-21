@@ -74,37 +74,29 @@ function biogenesis.lib.hide_technology(tech_name)
   tech.enabled = false
 end
 
--- Hide an item (add "hidden" flag)
+-- Hide an item (Factorio 2.0: set hidden property, not a flag)
 function biogenesis.lib.hide_item(item_name)
-  -- Search all item types
   for _, item_type in pairs({"item", "tool", "armor", "gun", "ammo",
     "capsule", "module", "rail-planner", "item-with-entity-data",
     "item-with-inventory", "item-with-label", "item-with-tags",
     "selection-tool", "spidertron-remote"}) do
     local item = data.raw[item_type] and data.raw[item_type][item_name]
     if item then
-      if not item.flags then item.flags = {} end
-      if not biogenesis.lib.tablefind(item.flags, "hidden") then
-        table.insert(item.flags, "hidden")
-      end
+      item.hidden = true
       return
     end
   end
-  -- Try fluid
   local fluid = data.raw.fluid and data.raw.fluid[item_name]
   if fluid then
     fluid.hidden = true
   end
 end
 
--- Hide an entity
+-- Hide an entity (Factorio 2.0: set hidden property)
 function biogenesis.lib.hide_entity(entity_type, entity_name)
   local entity = data.raw[entity_type] and data.raw[entity_type][entity_name]
   if not entity then return end
-  if not entity.flags then entity.flags = {} end
-  if not biogenesis.lib.tablefind(entity.flags, "hidden") then
-    table.insert(entity.flags, "hidden")
-  end
+  entity.hidden = true
 end
 
 -------------------------------------------------------------------------------
