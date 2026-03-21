@@ -229,6 +229,71 @@ data:extend({
 })
 
 -------------------------------------------------------------------------------
+-- ALWAYS AVAILABLE: Crop Plot + Growing Recipes
+-------------------------------------------------------------------------------
+data:extend({
+  -- Build Crop Plot
+  {
+    type = "recipe", name = "bio-era1-crop-plot-recipe",
+    category = "crafting", energy_required = 3,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-plant-fiber", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-crop-plot", amount = 1}},
+    enabled = true, subgroup = "bio-era1-machines", order = "h[machines]-l",
+  },
+  -- Grow Saltmarsh Grass: 1 seed → 3 grass + 1 seed (60s)
+  {
+    type = "recipe", name = "bio-era1-grow-saltmarsh-grass",
+    category = "crop-growing", energy_required = 60,
+    ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass-seed", amount = 1}},
+    results = {
+      {type = "item", name = "bio-era1-saltmarsh-grass", amount = 3},
+      {type = "item", name = "bio-era1-saltmarsh-grass-seed", amount = 1},
+    },
+    main_product = "bio-era1-saltmarsh-grass",
+    enabled = true, subgroup = "bio-era1-seeds", order = "g[grow]-a",
+  },
+  -- Grow Glasswort: 1 seed → 2 glasswort + 1 seed (60s)
+  {
+    type = "recipe", name = "bio-era1-grow-glasswort",
+    category = "crop-growing", energy_required = 60,
+    ingredients = {{type = "item", name = "bio-era1-glasswort-seed", amount = 1}},
+    results = {
+      {type = "item", name = "bio-era1-glasswort", amount = 2},
+      {type = "item", name = "bio-era1-glasswort-seed", amount = 1},
+    },
+    main_product = "bio-era1-glasswort",
+    enabled = true, subgroup = "bio-era1-seeds", order = "g[grow]-b",
+  },
+  -- Grow Kelp: 1 seed → 3 kelp + 1 seed (60s)
+  {
+    type = "recipe", name = "bio-era1-grow-kelp",
+    category = "crop-growing", energy_required = 60,
+    ingredients = {{type = "item", name = "bio-era1-kelp-spore-culture", amount = 1}},
+    results = {
+      {type = "item", name = "bio-era1-kelp", amount = 3},
+      {type = "item", name = "bio-era1-kelp-spore-culture", amount = 1},
+    },
+    main_product = "bio-era1-kelp",
+    enabled = true, subgroup = "bio-era1-seeds", order = "g[grow]-c",
+  },
+  -- Grow Sea-Grain: 1 seed → 3 sea-grain + 1 seed (60s)
+  {
+    type = "recipe", name = "bio-era1-grow-sea-grain",
+    category = "crop-growing", energy_required = 60,
+    ingredients = {{type = "item", name = "bio-era1-sea-grain-seed", amount = 1}},
+    results = {
+      {type = "item", name = "bio-era1-sea-grain", amount = 3},
+      {type = "item", name = "bio-era1-sea-grain-seed", amount = 1},
+    },
+    main_product = "bio-era1-sea-grain",
+    enabled = true, subgroup = "bio-era1-seeds", order = "g[grow]-d",
+  },
+})
+
+-------------------------------------------------------------------------------
 -- TECH 1: Saltwater Collection
 -------------------------------------------------------------------------------
 data:extend({

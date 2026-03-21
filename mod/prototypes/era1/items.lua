@@ -506,6 +506,15 @@ data:extend({
     stack_size = 20,
     place_result = "bio-era1-field-notebook-station",
   },
+  {
+    type = "item",
+    name = "bio-era1-crop-plot",
+    icons = tinted_icon(V .. "tree-09.png", GREEN),
+    subgroup = "bio-era1-machines",
+    order = "l[crop-plot]",
+    stack_size = 20,
+    place_result = "bio-era1-crop-plot",
+  },
 })
 
 -------------------------------------------------------------------------------

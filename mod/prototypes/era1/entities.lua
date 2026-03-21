@@ -242,6 +242,24 @@ data:extend({{
   energy_usage = "1kW",
 }})
 
+-- 12. Crop Plot — 2x1, 1kW, grows crops from seeds
+data:extend({{
+  type = "assembling-machine",
+  name = "bio-era1-crop-plot",
+  icons = tinted_icon("__base__/graphics/icons/tree-09.png", {r = 0.4, g = 0.8, b = 0.3}),
+  flags = {"placeable-neutral", "player-creation"},
+  minable = {mining_time = 0.5, result = "bio-era1-crop-plot"},
+  max_health = 100,
+  corpse = "small-remnants",
+  collision_box = {{-0.9, -0.35}, {0.9, 0.35}},
+  selection_box = {{-1, -0.5}, {1, 0.5}},
+  graphics_set = { animation = entity_sprite("wild-grass.png", 32, 48) },
+  crafting_categories = {"crop-growing"},
+  crafting_speed = 1,
+  energy_source = electric_energy(1),
+  energy_usage = "1kW",
+}})
+
 -------------------------------------------------------------------------------
 -- CROP PLANTS: SEEDLING ENTITIES (4)
 -- Placed by seed items. NOT minable for harvest — mining returns the seed.

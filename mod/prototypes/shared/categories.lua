@@ -117,6 +117,7 @@ data:extend({
   { type = "recipe-category", name = "drying" },                  -- Drying Rack
   { type = "recipe-category", name = "kiln-firing" },             -- Stone-Lined Fire Pit
   { type = "recipe-category", name = "composting" },              -- Compost Heap
+  { type = "recipe-category", name = "crop-growing" },            -- Crop Plot
 
   -- Era 2+: placeholder categories (defined now so data.lua loads cleanly)
   { type = "recipe-category", name = "bio-smelting" },            -- Bio-Smelter
