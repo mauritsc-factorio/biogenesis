@@ -49,3 +49,20 @@ inserter.order = "a[inserter]-a[kelp-stalk-inserter]"
 inserter.subgroup = "bio-era1-logistics"
 
 data:extend({inserter})
+
+-------------------------------------------------------------------------------
+-- KELP-STALK POLE: electric-pole with short range
+-- Deep-copy vanilla small-electric-pole, reduce wire reach.
+-------------------------------------------------------------------------------
+local pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+pole.name = "bio-era1-kelp-stalk-pole"
+pole.icons = tinted_icon("__base__/graphics/icons/small-electric-pole.png", DARK_TEAL)
+pole.minable.result = "bio-era1-kelp-stalk-pole"
+pole.maximum_wire_distance = 7.5  -- Same as vanilla small pole
+pole.supply_area_distance = 2.5   -- Same as vanilla small pole
+pole.max_health = 50
+pole.next_upgrade = nil
+pole.order = "a[energy]-a[kelp-stalk-pole]"
+pole.subgroup = "bio-era1-logistics"
+
+data:extend({pole})

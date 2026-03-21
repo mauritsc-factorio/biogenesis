@@ -92,6 +92,21 @@ data:extend({
     subgroup = "bio-era1-logistics",
     order = "b[logistics]-b",
   },
+  -- #4d: Craft Kelp-Stalk Pole
+  {
+    type = "recipe",
+    name = "bio-era1-kelp-stalk-pole-recipe",
+    category = "crafting",
+    energy_required = 0.5,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 2},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-kelp-stalk-pole", amount = 2}},
+    enabled = true,
+    subgroup = "bio-era1-logistics",
+    order = "b[logistics]-c",
+  },
 })
 
 -------------------------------------------------------------------------------

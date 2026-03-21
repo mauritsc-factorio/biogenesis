@@ -539,6 +539,15 @@ data:extend({
     stack_size = 50,
     place_result = "bio-era1-kelp-stalk-inserter",
   },
+  {
+    type = "item",
+    name = "bio-era1-kelp-stalk-pole",
+    icons = tinted_icon(V .. "small-electric-pole.png", DARK_TEAL),
+    subgroup = "bio-era1-logistics",
+    order = "c[kelp-stalk-pole]",
+    stack_size = 50,
+    place_result = "bio-era1-kelp-stalk-pole",
+  },
 })
 
 -------------------------------------------------------------------------------
