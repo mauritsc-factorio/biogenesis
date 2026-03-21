@@ -57,6 +57,8 @@
 - `results = {{}}` format required in 2.0, old `result`/`result_count` is undocumented
 
 ### Needs Fixing
+- [ ] Rename "Observational Analysis Kit" -- too wordy, needs a better name
+- [ ] Rename "Field Notebook Station" -- not sold on the name
 - [ ] Many items still use tinted vanilla icons (hard to distinguish)
 - [ ] Machines are colored rectangles (need real sprites)
 - [ ] Some intermediate items share the same icon (cracked nut = nut icon, etc.)

@@ -1,921 +1,606 @@
--- Biogenesis Era 1: Recipes
--- All ~38 recipes from the design document.
---
--- Probability-based seed drops are approximated as separate extraction recipes
--- (e.g., "3 Wild Grain Head -> 1 Wild Grain Seed" simulates ~33% per head).
--- Actual drop-rate feel can be tuned later with scripting.
+-- Biogenesis Era 1: Recipes (Seablock Redesign)
+-- 50 recipes matching the design doc.
+-- enabled = true  → available from game start
+-- enabled = false → unlocked by technology
 
 -------------------------------------------------------------------------------
--- FIBER PROCESSING CHAIN
+-- ALWAYS AVAILABLE: Hand-Crafts
 -------------------------------------------------------------------------------
 data:extend({
-  -- Recipe 1: Wild Grass -> 2 Plant Fiber (hand-craft)
-  -- Keep minimal flags — defaults (all true) handle auto-craft chaining
+  -- #1: Strip Grass → 2 Plant Fiber
   {
     type = "recipe",
-    name = "bio-era1-process-wild-grass",
+    name = "bio-era1-process-saltmarsh-grass",
     category = "crafting",
     energy_required = 1,
-    ingredients = {
-      {type = "item", name = "bio-era1-wild-grass", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 2},
-    },
+    ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 1}},
+    results = {{type = "item", name = "bio-era1-plant-fiber", amount = 2}},
     enabled = true,
     subgroup = "bio-era1-intermediates",
-    order = "a[fiber]-a[process-wild-grass]",
+    order = "a[fiber]-a",
   },
-
-  -- Recipe 2: Cattail -> 1 Plant Fiber + 1 Cattail Root (hand-craft)
-  -- Split into two single-output recipes so both auto-chain properly
-  {
-    type = "recipe",
-    name = "bio-era1-process-cattail",
-    category = "crafting",
-    energy_required = 1.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-cattail", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-cattail-root", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "a[fiber]-b[process-cattail]",
-  },
-
-  -- Recipe 3: 1 Wild Grass -> 1 Fiber Cord (hand-craft, direct)
-  -- Bypasses plant fiber intermediate for cord specifically.
-  -- Plant fiber recipe still exists for baskets/construction.
+  -- #2: Twist Fiber Cord
   {
     type = "recipe",
     name = "bio-era1-fiber-cord",
     category = "crafting",
     energy_required = 2,
-    ingredients = {
-      {type = "item", name = "bio-era1-wild-grass", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-fiber-cord", amount = 1},
-    },
+    ingredients = {{type = "item", name = "bio-era1-plant-fiber", amount = 2}},
+    results = {{type = "item", name = "bio-era1-fiber-cord", amount = 1}},
     enabled = true,
     subgroup = "bio-era1-intermediates",
-    order = "a[fiber]-c[fiber-cord]",
+    order = "a[fiber]-b",
   },
-
-  -- Recipe 4: Bark Strip from tree components (hand-craft with bark scraper)
-  -- Simplified: 1 wood -> 2 Bark Strip
+  -- #3: Split Kelp → Frond + Stalk
   {
     type = "recipe",
-    name = "bio-era1-bark-strip",
+    name = "bio-era1-split-kelp",
+    category = "crafting",
+    energy_required = 1.5,
+    ingredients = {{type = "item", name = "bio-era1-kelp", amount = 1}},
+    results = {
+      {type = "item", name = "bio-era1-kelp-frond", amount = 1},
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 1},
+    },
+    main_product = "bio-era1-kelp-stalk",
+    enabled = true,
+    subgroup = "bio-era1-raw",
+    order = "a[fiber]-c",
+  },
+  -- #4: Weave Reed Mat
+  {
+    type = "recipe",
+    name = "bio-era1-woven-reed-mat",
     category = "crafting",
     energy_required = 3,
     ingredients = {
-      {type = "item", name = "wood", amount = 1},
+      {type = "item", name = "bio-era1-saltmarsh-grass", amount = 4},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 2},
     },
-    results = {
-      {type = "item", name = "bio-era1-bark-strip", amount = 2},
-    },
+    results = {{type = "item", name = "bio-era1-woven-reed-mat", amount = 1}},
     enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "a[fiber]-d[bark-strip]",
+    subgroup = "bio-era1-land",
+    order = "b[land]-a",
+  },
+  -- #4b: Craft Kelp-Stalk Belt
+  {
+    type = "recipe",
+    name = "bio-era1-kelp-stalk-belt-recipe",
+    category = "crafting",
+    energy_required = 0.5,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 1},
+      {type = "item", name = "bio-era1-plant-fiber", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-kelp-stalk-belt", amount = 2}},
+    enabled = true,
+    subgroup = "bio-era1-logistics",
+    order = "b[logistics]-a",
+  },
+  -- #4c: Craft Kelp-Stalk Inserter
+  {
+    type = "recipe",
+    name = "bio-era1-kelp-stalk-inserter-recipe",
+    category = "crafting",
+    energy_required = 1,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 2},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-kelp-stalk-inserter", amount = 1}},
+    enabled = true,
+    subgroup = "bio-era1-logistics",
+    order = "b[logistics]-b",
   },
 })
 
 -------------------------------------------------------------------------------
--- GRAIN PROCESSING CHAIN
+-- ALWAYS AVAILABLE: Waste Classification (Hand)
 -------------------------------------------------------------------------------
 data:extend({
-  -- Recipe 5: 3 Wild Grain Head -> 2 Rough Flour + 1 Chaff (Grinding Slab)
+  -- #5: Grass → Green Waste
   {
-    type = "recipe",
-    name = "bio-era1-grind-grain",
-    category = "grinding",
-    energy_required = 4,
+    type = "recipe", name = "bio-era1-waste-grass",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 1}},
+    results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-c",
+  },
+  -- #6: Glasswort → Green Waste
+  {
+    type = "recipe", name = "bio-era1-waste-glasswort",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-glasswort", amount = 1}},
+    results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-d",
+  },
+  -- #7: Kelp Frond → Green Waste
+  {
+    type = "recipe", name = "bio-era1-waste-kelp-frond",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-kelp-frond", amount = 1}},
+    results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-e",
+  },
+  -- #8: Chaff → Green Waste
+  {
+    type = "recipe", name = "bio-era1-waste-chaff",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-chaff", amount = 1}},
+    results = {{type = "item", name = "bio-era1-green-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-f",
+  },
+  -- #9: Kelp Stalk → Brown Waste
+  {
+    type = "recipe", name = "bio-era1-waste-kelp-stalk",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-kelp-stalk", amount = 1}},
+    results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-g",
+  },
+  -- #10: Dried Kelp → Brown Waste
+  {
+    type = "recipe", name = "bio-era1-waste-dried-kelp",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-dried-kelp", amount = 1}},
+    results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-h",
+  },
+  -- #11: Ash → Brown Waste
+  {
+    type = "recipe", name = "bio-era1-waste-ash",
+    category = "crafting", energy_required = 0.5,
+    ingredients = {{type = "item", name = "bio-era1-ash", amount = 1}},
+    results = {{type = "item", name = "bio-era1-brown-waste", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-i",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- ALWAYS AVAILABLE: Machine Recipes (Compost Heap)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #12: Load Compost
+  {
+    type = "recipe", name = "bio-era1-compost-load",
+    category = "composting", energy_required = 30,
     ingredients = {
-      {type = "item", name = "bio-era1-wild-grain-head", amount = 3},
+      {type = "item", name = "bio-era1-green-waste", amount = 5},
+      {type = "item", name = "bio-era1-brown-waste", amount = 5},
     },
+    results = {{type = "item", name = "bio-era1-immature-compost", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-a",
+  },
+  -- #13: Mature Compost
+  {
+    type = "recipe", name = "bio-era1-compost-mature",
+    category = "composting", energy_required = 30,
+    ingredients = {{type = "item", name = "bio-era1-immature-compost", amount = 1}},
+    results = {{type = "item", name = "bio-era1-finished-compost", amount = 1}},
+    enabled = true, subgroup = "bio-era1-intermediates", order = "k[compost]-b",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- ALWAYS AVAILABLE: Infrastructure (Hand)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #14: Build Compost Heap
+  {
+    type = "recipe", name = "bio-era1-compost-heap-recipe",
+    category = "crafting", energy_required = 4,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-plant-fiber", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-compost-heap", amount = 1}},
+    enabled = true, subgroup = "bio-era1-machines", order = "h[machines]-j",
+  },
+  -- #15: Build Field Notebook Station
+  {
+    type = "recipe", name = "bio-era1-field-notebook-station-recipe",
+    category = "crafting", energy_required = 3,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 5},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 3},
+    },
+    results = {{type = "item", name = "bio-era1-field-notebook-station", amount = 1}},
+    enabled = true, subgroup = "bio-era1-machines", order = "h[machines]-k",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- ALWAYS AVAILABLE: Science (Hand)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #16: Prepare Tidal Observation Kit
+  {
+    type = "recipe", name = "bio-era1-tidal-observation-kit",
+    category = "crafting", energy_required = 5,
+    ingredients = {
+      {type = "item", name = "bio-era1-dried-kelp", amount = 1},
+      {type = "item", name = "bio-era1-plant-fiber", amount = 1},
+      {type = "item", name = "bio-era1-sea-salt", amount = 1},
+      {type = "item", name = "bio-era1-calcium-precipitate", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-tidal-observation-kit", amount = 2}},
+    enabled = true, subgroup = "bio-era1-science", order = "z[science]-a",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 1: Saltwater Collection
+-------------------------------------------------------------------------------
+data:extend({
+  -- #17: Collect Saltwater (passive, no input)
+  {
+    type = "recipe", name = "bio-era1-collect-saltwater",
+    category = "saltwater-collection", energy_required = 10,
+    ingredients = {},
+    results = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    enabled = false, subgroup = "bio-era1-saltwater", order = "c[salt]-a",
+  },
+  -- #18: Build Saltwater Basin
+  {
+    type = "recipe", name = "bio-era1-saltwater-basin-recipe",
+    category = "crafting", energy_required = 3,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-plant-fiber", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-saltwater-basin", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-a",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 2: Solar Evaporation
+-------------------------------------------------------------------------------
+data:extend({
+  -- #19: Evaporate Saltwater → Sea Salt + Brackish Water
+  {
+    type = "recipe", name = "bio-era1-evaporate-saltwater",
+    category = "evaporation", energy_required = 15,
+    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    results = {
+      {type = "item", name = "bio-era1-sea-salt", amount = 2},
+      {type = "item", name = "bio-era1-brackish-water", amount = 3},
+    },
+    main_product = "bio-era1-sea-salt",
+    enabled = false, subgroup = "bio-era1-saltwater", order = "c[salt]-b",
+  },
+  -- #20: Build Solar Evaporation Tray
+  {
+    type = "recipe", name = "bio-era1-solar-evaporation-tray-recipe",
+    category = "crafting", energy_required = 4,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 2},
+    },
+    results = {{type = "item", name = "bio-era1-solar-evaporation-tray", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-b",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 3: Kelp Cultivation
+-------------------------------------------------------------------------------
+data:extend({
+  -- #21: Dry Kelp → Dried Kelp + Ash
+  {
+    type = "recipe", name = "bio-era1-dry-kelp",
+    category = "drying", energy_required = 30,
+    ingredients = {{type = "item", name = "bio-era1-kelp-frond", amount = 2}},
+    results = {
+      {type = "item", name = "bio-era1-dried-kelp", amount = 1},
+      {type = "item", name = "bio-era1-ash", amount = 1},
+    },
+    main_product = "bio-era1-dried-kelp",
+    enabled = false, subgroup = "bio-era1-intermediates", order = "d[kelp]-a",
+  },
+  -- #22: Roast Kelp → Roasted Kelp
+  {
+    type = "recipe", name = "bio-era1-roast-kelp",
+    category = "kiln-firing", energy_required = 5,
+    ingredients = {{type = "item", name = "bio-era1-kelp-frond", amount = 1}},
+    results = {{type = "item", name = "bio-era1-roasted-kelp", amount = 1}},
+    enabled = false, subgroup = "bio-era1-food", order = "d[kelp]-b",
+  },
+  -- #23: Make Charcoal → Kelp Charcoal + Ash
+  {
+    type = "recipe", name = "bio-era1-kelp-charcoal",
+    category = "kiln-firing", energy_required = 10,
+    ingredients = {{type = "item", name = "bio-era1-dried-kelp", amount = 2}},
+    results = {
+      {type = "item", name = "bio-era1-kelp-charcoal", amount = 1},
+      {type = "item", name = "bio-era1-ash", amount = 1},
+    },
+    main_product = "bio-era1-kelp-charcoal",
+    enabled = false, subgroup = "bio-era1-intermediates", order = "d[kelp]-c",
+  },
+  -- #24: Build Drying Rack (consumes Knapping Blade)
+  {
+    type = "recipe", name = "bio-era1-drying-rack-recipe",
+    category = "crafting", energy_required = 3,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
+      {type = "item", name = "bio-era1-knapping-blade", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-drying-rack-frame", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-c",
+  },
+  -- #25: Build Fire Pit
+  {
+    type = "recipe", name = "bio-era1-stone-fire-pit-recipe",
+    category = "crafting", energy_required = 6,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 6},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-stone-fire-pit", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-d",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 4: Biomass Compression
+-------------------------------------------------------------------------------
+data:extend({
+  -- #26: Compress Grass
+  {
+    type = "recipe", name = "bio-era1-compress-grass",
+    category = "biomass-compression", energy_required = 30,
+    ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 5}},
+    results = {{type = "item", name = "bio-era1-compressed-biomass-block", amount = 1}},
+    enabled = false, subgroup = "bio-era1-land", order = "e[compress]-a",
+  },
+  -- #27: Compress Kelp
+  {
+    type = "recipe", name = "bio-era1-compress-kelp",
+    category = "biomass-compression", energy_required = 30,
+    ingredients = {{type = "item", name = "bio-era1-kelp", amount = 5}},
+    results = {{type = "item", name = "bio-era1-compressed-biomass-block", amount = 1}},
+    enabled = false, subgroup = "bio-era1-land", order = "e[compress]-b",
+  },
+  -- #28: Compress Fiber
+  {
+    type = "recipe", name = "bio-era1-compress-fiber",
+    category = "biomass-compression", energy_required = 30,
+    ingredients = {{type = "item", name = "bio-era1-plant-fiber", amount = 10}},
+    results = {{type = "item", name = "bio-era1-compressed-biomass-block", amount = 1}},
+    enabled = false, subgroup = "bio-era1-land", order = "e[compress]-c",
+  },
+  -- #29: Build Biomass Compressor (consumes Crude Hammer)
+  {
+    type = "recipe", name = "bio-era1-biomass-compressor-recipe",
+    category = "crafting", energy_required = 5,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 6},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
+      {type = "item", name = "bio-era1-crude-hammer", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-biomass-compressor", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-e",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 5: Calcium Precipitation
+-------------------------------------------------------------------------------
+data:extend({
+  -- #31: Precipitate Calcium → Calcium Precipitate + Brackish Water
+  {
+    type = "recipe", name = "bio-era1-precipitate-calcium",
+    category = "calcium-precipitation", energy_required = 20,
+    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    results = {
+      {type = "item", name = "bio-era1-calcium-precipitate", amount = 1},
+      {type = "item", name = "bio-era1-brackish-water", amount = 1},
+    },
+    main_product = "bio-era1-calcium-precipitate",
+    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-a",
+  },
+  -- #32: Calcine → Calcite
+  {
+    type = "recipe", name = "bio-era1-calcine",
+    category = "kiln-firing", energy_required = 10,
+    ingredients = {{type = "item", name = "bio-era1-calcium-precipitate", amount = 2}},
+    results = {{type = "item", name = "bio-era1-calcite", amount = 1}},
+    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-b",
+  },
+  -- #33: Burn Glasswort → Glasswort Ash
+  {
+    type = "recipe", name = "bio-era1-glasswort-ash",
+    category = "kiln-firing", energy_required = 8,
+    ingredients = {{type = "item", name = "bio-era1-glasswort", amount = 2}},
+    results = {{type = "item", name = "bio-era1-glasswort-ash", amount = 1}},
+    enabled = false, subgroup = "bio-era1-intermediates", order = "f[calcium]-c",
+  },
+  -- #34: Build Calcium Vat
+  {
+    type = "recipe", name = "bio-era1-calcium-precipitation-vat-recipe",
+    category = "crafting", energy_required = 4,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 4},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-calcium-precipitation-vat", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-f",
+  },
+  -- #35: Build Grinding Slab
+  {
+    type = "recipe", name = "bio-era1-grinding-slab-recipe",
+    category = "crafting", energy_required = 5,
+    ingredients = {{type = "item", name = "bio-era1-calcite", amount = 5}},
+    results = {{type = "item", name = "bio-era1-grinding-slab", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-g",
+  },
+  -- #36-39: Tool crafting recipes
+  {
+    type = "recipe", name = "bio-era1-crude-hammer",
+    category = "crafting", energy_required = 2,
+    ingredients = {
+      {type = "item", name = "bio-era1-calcite", amount = 2},
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-crude-hammer", amount = 1}},
+    enabled = false, subgroup = "bio-era1-tools", order = "g[tools]-a",
+  },
+  {
+    type = "recipe", name = "bio-era1-knapping-blade",
+    category = "crafting", energy_required = 2,
+    ingredients = {
+      {type = "item", name = "bio-era1-calcite", amount = 1},
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-knapping-blade", amount = 1}},
+    enabled = false, subgroup = "bio-era1-tools", order = "g[tools]-b",
+  },
+  {
+    type = "recipe", name = "bio-era1-digging-stick",
+    category = "crafting", energy_required = 1,
+    ingredients = {{type = "item", name = "bio-era1-kelp-stalk", amount = 1}},
+    results = {{type = "item", name = "bio-era1-digging-stick", amount = 1}},
+    enabled = false, subgroup = "bio-era1-tools", order = "g[tools]-c",
+  },
+  {
+    type = "recipe", name = "bio-era1-pestle",
+    category = "crafting", energy_required = 2,
+    ingredients = {
+      {type = "item", name = "bio-era1-calcite", amount = 1},
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 1},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 2},
+    },
+    results = {{type = "item", name = "bio-era1-pestle", amount = 1}},
+    enabled = false, subgroup = "bio-era1-tools", order = "g[tools]-d",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 6: Halophyte Cultivation (2 TOK)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #40-43: Seed extraction
+  {
+    type = "recipe", name = "bio-era1-extract-grass-seed",
+    category = "crafting", energy_required = 3,
+    ingredients = {{type = "item", name = "bio-era1-saltmarsh-grass", amount = 5}},
+    results = {{type = "item", name = "bio-era1-saltmarsh-grass-seed", amount = 1}},
+    enabled = false, subgroup = "bio-era1-seeds", order = "i[seeds]-a",
+  },
+  {
+    type = "recipe", name = "bio-era1-extract-glasswort-seed",
+    category = "crafting", energy_required = 3,
+    ingredients = {{type = "item", name = "bio-era1-glasswort", amount = 3}},
+    results = {{type = "item", name = "bio-era1-glasswort-seed", amount = 1}},
+    enabled = false, subgroup = "bio-era1-seeds", order = "i[seeds]-b",
+  },
+  {
+    type = "recipe", name = "bio-era1-extract-kelp-spore",
+    category = "crafting", energy_required = 3,
+    ingredients = {{type = "item", name = "bio-era1-kelp", amount = 5}},
+    results = {{type = "item", name = "bio-era1-kelp-spore-culture", amount = 1}},
+    enabled = false, subgroup = "bio-era1-seeds", order = "i[seeds]-c",
+  },
+  {
+    type = "recipe", name = "bio-era1-extract-sea-grain-seed",
+    category = "crafting", energy_required = 5,
+    ingredients = {
+      {type = "item", name = "bio-era1-glasswort", amount = 3},
+      {type = "item", name = "bio-era1-sea-salt", amount = 1},
+    },
+    results = {{type = "item", name = "bio-era1-sea-grain-seed", amount = 1}},
+    enabled = false, subgroup = "bio-era1-seeds", order = "i[seeds]-d",
+  },
+  -- #44: Grind Sea-Grain → Flour + Chaff
+  {
+    type = "recipe", name = "bio-era1-grind-sea-grain",
+    category = "grinding", energy_required = 4,
+    ingredients = {{type = "item", name = "bio-era1-sea-grain", amount = 3}},
     results = {
       {type = "item", name = "bio-era1-rough-flour", amount = 2},
       {type = "item", name = "bio-era1-chaff", amount = 1},
     },
     main_product = "bio-era1-rough-flour",
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "b[grain]-a[grind-grain]",
+    enabled = false, subgroup = "bio-era1-intermediates", order = "i[grain]-a",
   },
+})
 
-  -- Recipe 6: 1 Rough Flour + 1 Water -> 2 Flatbread (Stone-Lined Fire Pit)
+-------------------------------------------------------------------------------
+-- TECH 7: Tidal Energy (3 TOK)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #45: Build Tidal Generator
   {
-    type = "recipe",
-    name = "bio-era1-bake-flatbread",
-    category = "kiln-firing",
-    energy_required = 6,
+    type = "recipe", name = "bio-era1-tidal-power-generator-recipe",
+    category = "crafting", energy_required = 10,
+    ingredients = {
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 8},
+      {type = "item", name = "bio-era1-fiber-cord", amount = 6},
+      {type = "item", name = "bio-era1-calcite", amount = 4},
+    },
+    results = {{type = "item", name = "bio-era1-tidal-power-generator", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-h",
+  },
+})
+
+-------------------------------------------------------------------------------
+-- TECH 8: Seaweed Desalination (3 TOK)
+-------------------------------------------------------------------------------
+data:extend({
+  -- #46: Desalinate → Freshwater + Concentrated Brine
+  {
+    type = "recipe", name = "bio-era1-desalinate",
+    category = "desalination", energy_required = 20,
+    ingredients = {{type = "item", name = "bio-era1-saltwater", amount = 5}},
+    results = {
+      {type = "item", name = "bio-era1-freshwater", amount = 3},
+      {type = "item", name = "bio-era1-concentrated-brine", amount = 1},
+    },
+    main_product = "bio-era1-freshwater",
+    enabled = false, subgroup = "bio-era1-saltwater", order = "j[desal]-a",
+  },
+  -- #47: Efficient Calcium from Brine
+  {
+    type = "recipe", name = "bio-era1-precipitate-from-brine",
+    category = "calcium-precipitation", energy_required = 10,
+    ingredients = {{type = "item", name = "bio-era1-concentrated-brine", amount = 3}},
+    results = {{type = "item", name = "bio-era1-calcium-precipitate", amount = 2}},
+    enabled = false, subgroup = "bio-era1-intermediates", order = "j[desal]-b",
+  },
+  -- #48: Bake Flatbread
+  {
+    type = "recipe", name = "bio-era1-bake-flatbread",
+    category = "kiln-firing", energy_required = 6,
     ingredients = {
       {type = "item", name = "bio-era1-rough-flour", amount = 1},
-      {type = "item", name = "bio-era1-water", amount = 1},
+      {type = "item", name = "bio-era1-freshwater", amount = 1},
     },
-    results = {
-      {type = "item", name = "bio-era1-flatbread", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "b[grain]-b[bake-flatbread]",
+    results = {{type = "item", name = "bio-era1-flatbread", amount = 2}},
+    enabled = false, subgroup = "bio-era1-food", order = "j[desal]-c",
   },
-})
-
--------------------------------------------------------------------------------
--- ROOT / STARCH PROCESSING CHAIN
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 7: 2 Cattail Root -> 2 Cattail Starch (Grinding Slab)
-  -- Design includes water + tannin water output; simplified to items for now.
+  -- #49: Cook Porridge
   {
-    type = "recipe",
-    name = "bio-era1-cattail-starch",
-    category = "grinding",
-    energy_required = 5,
+    type = "recipe", name = "bio-era1-grain-porridge",
+    category = "kiln-firing", energy_required = 5,
     ingredients = {
-      {type = "item", name = "bio-era1-cattail-root", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-cattail-starch", amount = 2},
-      {type = "item", name = "bio-era1-tannin-extract", amount = 1},
-    },
-    main_product = "bio-era1-cattail-starch",
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "c[root]-a[cattail-starch]",
-  },
-
-  -- Recipe 8: 1 Bog Root -> 1 Root Mash (hand-craft with crude hammer)
-  {
-    type = "recipe",
-    name = "bio-era1-root-mash",
-    category = "crafting",
-    energy_required = 4,
-    ingredients = {
-      {type = "item", name = "bio-era1-bog-root", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-root-mash", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "c[root]-b[root-mash]",
-  },
-
-  -- Recipe 9: 1 Root Mash -> 2 Root Porridge (Fire Pit)
-  {
-    type = "recipe",
-    name = "bio-era1-root-porridge",
-    category = "kiln-firing",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-root-mash", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-root-porridge", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "c[root]-c[root-porridge]",
-  },
-
-  -- Recipe 10: 1 Cattail Starch -> 2 Root Porridge (Fire Pit, alternate)
-  {
-    type = "recipe",
-    name = "bio-era1-starch-porridge",
-    category = "kiln-firing",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-cattail-starch", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-root-porridge", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "c[root]-d[starch-porridge]",
-  },
-})
-
--------------------------------------------------------------------------------
--- NUT LEACHING CHAIN
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 11: 3 Forest Nut Cluster -> 3 Cracked Nut + 2 Shell Fragment (hand-craft)
-  {
-    type = "recipe",
-    name = "bio-era1-crack-nuts",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-forest-nut-cluster", amount = 3},
-    },
-    results = {
-      {type = "item", name = "bio-era1-cracked-nut", amount = 3},
-      {type = "item", name = "bio-era1-shell-fragment", amount = 2},
-    },
-    main_product = "bio-era1-cracked-nut",
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "d[nut]-a[crack-nuts]",
-  },
-
-  -- Recipe 12: 3 Cracked Nut -> 2 Leached Nut Meat + 1 Tannin Extract (Leaching Basket, 30s)
-  {
-    type = "recipe",
-    name = "bio-era1-leach-nuts",
-    category = "leaching",
-    energy_required = 30,
-    ingredients = {
-      {type = "item", name = "bio-era1-cracked-nut", amount = 3},
-    },
-    results = {
-      {type = "item", name = "bio-era1-leached-nut-meat", amount = 2},
-      {type = "item", name = "bio-era1-tannin-extract", amount = 1},
-    },
-    main_product = "bio-era1-leached-nut-meat",
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "d[nut]-b[leach-nuts]",
-  },
-
-  -- Recipe 13: 2 Leached Nut Meat -> 1 Nut Cake (Grinding Slab)
-  {
-    type = "recipe",
-    name = "bio-era1-nut-cake",
-    category = "grinding",
-    energy_required = 4,
-    ingredients = {
-      {type = "item", name = "bio-era1-leached-nut-meat", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-nut-cake", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "d[nut]-c[nut-cake]",
-  },
-})
-
--------------------------------------------------------------------------------
--- FUNGUS PROCESSING CHAIN
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 14: 1 Bracket Fungus -> 2 Raw Fungus (hand-craft with bark scraper)
-  {
-    type = "recipe",
-    name = "bio-era1-scrape-fungus",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "bio-era1-bracket-fungus", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-raw-fungus", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "e[fungus]-a[scrape-fungus]",
-  },
-
-  -- Recipe 15: 2 Raw Fungus -> 1 Dried Fungus (Drying Rack, 60s passive)
-  {
-    type = "recipe",
-    name = "bio-era1-dry-fungus",
-    category = "drying",
-    energy_required = 60,
-    ingredients = {
-      {type = "item", name = "bio-era1-raw-fungus", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-dried-fungus", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "e[fungus]-b[dry-fungus]",
-  },
-
-  -- Recipe 16: 1 Dried Fungus -> 2 Fungus Broth (Fire Pit)
-  {
-    type = "recipe",
-    name = "bio-era1-fungus-broth",
-    category = "kiln-firing",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-dried-fungus", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-fungus-broth", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "e[fungus]-c[fungus-broth]",
-  },
-})
-
--------------------------------------------------------------------------------
--- COMPOSTING CHAIN
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 17: 5 Green Waste + 5 Brown Waste -> 1 Immature Compost (Compost Heap loading)
-  {
-    type = "recipe",
-    name = "bio-era1-compost-load",
-    category = "composting",
-    energy_required = 30,
-    ingredients = {
-      {type = "item", name = "bio-era1-green-waste", amount = 5},
-      {type = "item", name = "bio-era1-brown-waste", amount = 5},
-    },
-    results = {
-      {type = "item", name = "bio-era1-immature-compost", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-a[compost-load]",
-  },
-
-  -- Recipe 18-19 combined: Immature Compost -> Finished Compost (Compost Heap, 120s)
-  {
-    type = "recipe",
-    name = "bio-era1-compost-mature",
-    category = "composting",
-    energy_required = 30,
-    ingredients = {
-      {type = "item", name = "bio-era1-immature-compost", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-finished-compost", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-b[compost-mature]",
-  },
-})
-
--------------------------------------------------------------------------------
--- WASTE CLASSIFICATION RECIPES (hand-craft conversions)
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 20: Chaff -> 1 Green Waste
-  {
-    type = "recipe",
-    name = "bio-era1-waste-chaff",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-chaff", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-green-waste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-c[waste-chaff]",
-  },
-
-  -- Recipe 21: Clover Patch -> 2 Clover Mulch (= Green Waste)
-  {
-    type = "recipe",
-    name = "bio-era1-clover-mulch",
-    category = "crafting",
-    energy_required = 1,
-    ingredients = {
-      {type = "item", name = "bio-era1-clover-patch", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-clover-mulch", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-d[clover-mulch]",
-  },
-
-  -- Recipe: Clover Mulch -> Green Waste
-  {
-    type = "recipe",
-    name = "bio-era1-waste-clover-mulch",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-clover-mulch", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-green-waste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-e[waste-clover-mulch]",
-  },
-
-  -- Recipe 22: Shell Fragment -> 1 Brown Waste
-  {
-    type = "recipe",
-    name = "bio-era1-waste-shell",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-shell-fragment", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-brown-waste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-f[waste-shell]",
-  },
-
-  -- Recipe 23: Bark Strip -> 1 Brown Waste
-  {
-    type = "recipe",
-    name = "bio-era1-waste-bark",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-bark-strip", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-brown-waste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-g[waste-bark]",
-  },
-
-  -- Recipe 25: Peat Moss -> 2 Brown Waste (alternative to peat brick)
-  {
-    type = "recipe",
-    name = "bio-era1-waste-peat",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-peat-moss", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-brown-waste", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-h[waste-peat]",
-  },
-
-  -- Wild Grass -> Green Waste (additional green waste source)
-  {
-    type = "recipe",
-    name = "bio-era1-waste-grass",
-    category = "crafting",
-    energy_required = 0.5,
-    ingredients = {
-      {type = "item", name = "bio-era1-wild-grass", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-green-waste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "f[compost]-i[waste-grass]",
-  },
-})
-
--------------------------------------------------------------------------------
--- FUEL & COOKING
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 26: 2 Peat Moss -> 1 Peat Brick (hand press)
-  {
-    type = "recipe",
-    name = "bio-era1-peat-brick",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-peat-moss", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-peat-brick", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "g[fuel]-a[peat-brick]",
-  },
-
-  -- Recipe 28: Trail Mix (hand-craft, no cooking)
-  {
-    type = "recipe",
-    name = "bio-era1-trail-mix",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-leached-nut-meat", amount = 1},
-      {type = "item", name = "bio-era1-dried-fungus", amount = 1},
       {type = "item", name = "bio-era1-rough-flour", amount = 1},
+      {type = "item", name = "bio-era1-freshwater", amount = 1},
     },
-    results = {
-      {type = "item", name = "bio-era1-trail-mix", amount = 3},
-    },
-    enabled = true,
-    subgroup = "bio-era1-food",
-    order = "g[fuel]-b[trail-mix]",
+    results = {{type = "item", name = "bio-era1-grain-porridge", amount = 2}},
+    enabled = false, subgroup = "bio-era1-food", order = "j[desal]-d",
   },
-})
-
--------------------------------------------------------------------------------
--- MISC PROCESSING
--------------------------------------------------------------------------------
-data:extend({
-  -- Lichen Paste: Lichen Scraping -> Lichen Paste (Grinding Slab)
+  -- #50: Build Desalination Bed
   {
-    type = "recipe",
-    name = "bio-era1-lichen-paste",
-    category = "grinding",
-    energy_required = 4,
+    type = "recipe", name = "bio-era1-seaweed-desalination-bed-recipe",
+    category = "crafting", energy_required = 6,
     ingredients = {
-      {type = "item", name = "bio-era1-lichen-scraping", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-lichen-paste", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "h[misc]-a[lichen-paste]",
-  },
-
-  -- Fermented Fruit Pulp: Fallen Fruit -> Fermented Fruit Pulp (passive, hand-craft placeholder)
-  {
-    type = "recipe",
-    name = "bio-era1-fermented-fruit",
-    category = "crafting",
-    energy_required = 10,
-    ingredients = {
-      {type = "item", name = "bio-era1-fallen-fruit", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-fermented-fruit-pulp", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-intermediates",
-    order = "h[misc]-b[fermented-fruit]",
-  },
-})
-
--------------------------------------------------------------------------------
--- TOOL CRAFTING (Recipes 29-36, all hand-craft)
--- Use vanilla stone / wood / stick where Factorio provides them.
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 29: 2 Stone + 1 Wood -> 1 Crude Hammer
-  {
-    type = "recipe",
-    name = "bio-era1-crude-hammer",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "stone", amount = 2},
-      {type = "item", name = "wood", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-crude-hammer", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-tools",
-    order = "i[tools]-a[crude-hammer]",
-  },
-
-  -- Recipe 30: 1 Stone + 1 Wood -> 1 Knapping Blade
-  {
-    type = "recipe",
-    name = "bio-era1-knapping-blade",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "stone", amount = 1},
-      {type = "item", name = "wood", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-knapping-blade", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-tools",
-    order = "i[tools]-b[knapping-blade]",
-  },
-
-  -- Recipe 31: 5 Stone -> 1 Grinding Slab (placed)
-  {
-    type = "recipe",
-    name = "bio-era1-grinding-slab-recipe",
-    category = "crafting",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "stone", amount = 5},
-    },
-    results = {
-      {type = "item", name = "bio-era1-grinding-slab", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "i[tools]-c[grinding-slab]",
-  },
-
-  -- Recipe 32: 6 Plant Fiber + 2 Wood -> 1 Leaching Basket
-  {
-    type = "recipe",
-    name = "bio-era1-leaching-basket-recipe",
-    category = "crafting",
-    energy_required = 4,
-    ingredients = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 6},
-      {type = "item", name = "wood", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-leaching-basket", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "i[tools]-d[leaching-basket]",
-  },
-
-  -- Recipe 33: 1 Wood -> 1 Digging Stick
-  {
-    type = "recipe",
-    name = "bio-era1-digging-stick",
-    category = "crafting",
-    energy_required = 1,
-    ingredients = {
-      {type = "item", name = "wood", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-digging-stick", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-tools",
-    order = "i[tools]-e[digging-stick]",
-  },
-
-  -- Recipe 34: 1 Stone + 1 Wood -> 1 Bark Scraper
-  {
-    type = "recipe",
-    name = "bio-era1-bark-scraper",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "stone", amount = 1},
-      {type = "item", name = "wood", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-bark-scraper", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-tools",
-    order = "i[tools]-f[bark-scraper]",
-  },
-
-  -- Recipe 35: 4 Wood + 4 Fiber Cord -> 1 Drying Rack Frame (placed)
-  {
-    type = "recipe",
-    name = "bio-era1-drying-rack-recipe",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "wood", amount = 4},
-      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
-    },
-    results = {
-      {type = "item", name = "bio-era1-drying-rack-frame", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "i[tools]-g[drying-rack]",
-  },
-
-  -- Recipe 36: 1 Stone + 1 Wood + 2 Fiber Cord -> 1 Pestle
-  {
-    type = "recipe",
-    name = "bio-era1-pestle",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "stone", amount = 1},
-      {type = "item", name = "wood", amount = 1},
-      {type = "item", name = "bio-era1-fiber-cord", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-pestle", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-tools",
-    order = "i[tools]-h[pestle]",
-  },
-})
-
--------------------------------------------------------------------------------
--- INFRASTRUCTURE CRAFTING (Recipes 37-38)
--------------------------------------------------------------------------------
-data:extend({
-  -- Recipe 37: 8 Stone + 4 Fiber Cord + 2 Peat Brick -> Stone-Lined Fire Pit
-  {
-    type = "recipe",
-    name = "bio-era1-stone-fire-pit-recipe",
-    category = "crafting",
-    energy_required = 8,
-    ingredients = {
-      {type = "item", name = "stone", amount = 8},
-      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
-      {type = "item", name = "bio-era1-peat-brick", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-stone-fire-pit", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "j[infra]-a[stone-fire-pit]",
-  },
-
-  -- Recipe 38: 6 Wood + 4 Fiber Cord + 2 Stone -> Water Wheel
-  {
-    type = "recipe",
-    name = "bio-era1-water-wheel-recipe",
-    category = "crafting",
-    energy_required = 10,
-    ingredients = {
-      {type = "item", name = "wood", amount = 6},
-      {type = "item", name = "bio-era1-fiber-cord", amount = 4},
-      {type = "item", name = "stone", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-water-wheel", amount = 1},
-    },
-    enabled = false,  -- unlocked by Hydraulic Observation
-    subgroup = "bio-era1-machines",
-    order = "j[infra]-b[water-wheel]",
-  },
-
-  -- Compost Heap construction
-  {
-    type = "recipe",
-    name = "bio-era1-compost-heap-recipe",
-    category = "crafting",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "wood", amount = 6},
+      {type = "item", name = "bio-era1-kelp-stalk", amount = 8},
       {type = "item", name = "bio-era1-plant-fiber", amount = 4},
-      {type = "item", name = "stone", amount = 2},
+      {type = "item", name = "bio-era1-calcite", amount = 2},
     },
-    results = {
-      {type = "item", name = "bio-era1-compost-heap", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "j[infra]-c[compost-heap]",
-  },
-
-  -- Collection Basket construction
-  {
-    type = "recipe",
-    name = "bio-era1-collection-basket-recipe",
-    category = "crafting",
-    energy_required = 2,
-    ingredients = {
-      {type = "item", name = "bio-era1-plant-fiber", amount = 4},
-      {type = "item", name = "wood", amount = 2},
-    },
-    results = {
-      {type = "item", name = "bio-era1-collection-basket", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "j[infra]-d[collection-basket]",
-  },
-
-  -- Field Notebook Station construction
-  {
-    type = "recipe",
-    name = "bio-era1-field-notebook-station-recipe",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "wood", amount = 5},
-      {type = "item", name = "stone", amount = 3},
-    },
-    results = {
-      {type = "item", name = "bio-era1-field-notebook-station", amount = 1},
-    },
-    enabled = true,
-    subgroup = "bio-era1-machines",
-    order = "j[infra]-e[field-notebook-station]",
-  },
-})
-
--------------------------------------------------------------------------------
--- SEED EXTRACTION RECIPES
--- Approximating probability-based drops as batch extraction recipes.
--- ~20% grass seed: 5 Wild Grass -> 1 Wild Grass Seed
--- ~33% grain seed: 3 Wild Grain Head -> 1 Wild Grain Seed
--- ~15% cattail seed (from cattail processing): 5 Cattail -> 1 Cattail Seed
--- ~10% bog root tuber: 10 Bog Root -> 1 Bog Root Tuber Eye
--- ~8% forest nut seed: 12 Forest Nut Cluster -> 1 Forest Nut Seed
--------------------------------------------------------------------------------
-data:extend({
-  {
-    type = "recipe",
-    name = "bio-era1-extract-grass-seed",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-wild-grass", amount = 5},
-    },
-    results = {
-      {type = "item", name = "bio-era1-wild-grass-seed", amount = 1},
-    },
-    enabled = false,  -- unlocked by Seeds of Potential
-    subgroup = "bio-era1-seeds",
-    order = "k[seeds]-a[grass-seed]",
-  },
-  {
-    type = "recipe",
-    name = "bio-era1-extract-grain-seed",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-wild-grain-head", amount = 3},
-    },
-    results = {
-      {type = "item", name = "bio-era1-wild-grain-seed", amount = 1},
-    },
-    enabled = false,  -- unlocked by Seeds of Potential
-    subgroup = "bio-era1-seeds",
-    order = "k[seeds]-b[grain-seed]",
-  },
-  {
-    type = "recipe",
-    name = "bio-era1-extract-cattail-seed",
-    category = "crafting",
-    energy_required = 3,
-    ingredients = {
-      {type = "item", name = "bio-era1-cattail", amount = 5},
-    },
-    results = {
-      {type = "item", name = "bio-era1-cattail-seed", amount = 1},
-    },
-    enabled = false,  -- unlocked by Seeds of Potential
-    subgroup = "bio-era1-seeds",
-    order = "k[seeds]-c[cattail-seed]",
-  },
-  {
-    type = "recipe",
-    name = "bio-era1-extract-bog-root-tuber",
-    category = "crafting",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-bog-root", amount = 10},
-    },
-    results = {
-      {type = "item", name = "bio-era1-bog-root-tuber-eye", amount = 1},
-    },
-    enabled = false,  -- unlocked by Seeds of Potential
-    subgroup = "bio-era1-seeds",
-    order = "k[seeds]-d[bog-root-tuber]",
-  },
-  {
-    type = "recipe",
-    name = "bio-era1-extract-nut-seed",
-    category = "crafting",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-forest-nut-cluster", amount = 12},
-    },
-    results = {
-      {type = "item", name = "bio-era1-forest-nut-seed", amount = 1},
-    },
-    enabled = false,  -- unlocked by Seeds of Potential
-    subgroup = "bio-era1-seeds",
-    order = "k[seeds]-e[nut-seed]",
-  },
-})
-
--------------------------------------------------------------------------------
--- SCIENCE: Observational Analysis Kit
--- 1 Rough Flour + 1 Dried Fungus + 1 Fiber Cord + 1 Finished Compost -> 2 OAK
--------------------------------------------------------------------------------
-data:extend({
-  {
-    type = "recipe",
-    name = "bio-era1-observational-analysis-kit",
-    category = "crafting",
-    energy_required = 5,
-    ingredients = {
-      {type = "item", name = "bio-era1-rough-flour", amount = 1},
-      {type = "item", name = "bio-era1-dried-fungus", amount = 1},
-      {type = "item", name = "bio-era1-fiber-cord", amount = 1},
-      {type = "item", name = "bio-era1-finished-compost", amount = 1},
-    },
-    results = {
-      {type = "item", name = "bio-era1-observational-analysis-kit", amount = 2},
-    },
-    enabled = true,
-    subgroup = "bio-era1-science",
-    order = "z[science]-a[oak]",
+    results = {{type = "item", name = "bio-era1-seaweed-desalination-bed", amount = 1}},
+    enabled = false, subgroup = "bio-era1-machines", order = "h[machines]-i",
   },
 })

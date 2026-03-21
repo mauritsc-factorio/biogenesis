@@ -1,10 +1,10 @@
 {
   "name": "biogenesis",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "title": "Biogenesis",
   "author": "mauritscottyn",
   "homepage": "",
-  "description": "From seed to synthesis. A Factorio overhaul that traces the arc from primitive agriculture to synthetic biology. Cultivate crops, decode genetics, engineer organisms, and build a living world.",
+  "description": "From seed to synthesis. A seablock total conversion where biology is the only resource. Start on a 3x3 island, cultivate crops, extract minerals from seawater, and build a living world.",
   "factorio_version": "2.0",
   "dependencies": [
     "base >= 2.0"
